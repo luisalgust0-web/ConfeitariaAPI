@@ -3,6 +3,8 @@ using CmsConfeitaria.Business.AutoMapperProfile;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
 using CmsConfeitaria.WebApi;
+using CmsConfeitaria.WebApi.Handlers;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -18,7 +20,14 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<UnidadeMedidaProfile>();
     cfg.AddProfile<ComrpaProfile>();
 }) ;
+
+
 builder.Services.AddControllers();
+
+
+builder.Services.AddAuthentication("BasicAuthentication")
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,6 +45,7 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader();
         });
 });
+
 
 builder.Services.AddDbContext<DBContextCm>(options =>
                 options.UseSqlServer(
@@ -59,6 +69,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowMyOrigin");
+
+//app.UseMiddleware<AutenticatioHandler>();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
