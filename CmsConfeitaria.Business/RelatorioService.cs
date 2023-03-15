@@ -36,7 +36,7 @@ namespace CmsConfeitaria.Business
 
             foreach (var item in receita.ReceitaIngredientes)
             {
-                var ingredienteOutput = new IngredienteOutput();
+                var ingredienteOutput = new RelatorioIngredienteOutput();
                 ingredienteOutput.NomeIngrediente = item.ingrediente.Nome;
                 var ultimaCompra = item.ingrediente.Compras.OrderByDescending(x => x.Id).FirstOrDefault();
                 ingredienteOutput.QuantidadeTotal = ultimaCompra.Quantidade;

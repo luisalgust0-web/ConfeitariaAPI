@@ -22,10 +22,10 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
         }
 
-        public List<ReceitaInput> BuscarLista()
+        public List<ReceitaOutput> BuscarLista()
         {
             IEnumerable<Receita> ListaReceita = _dBContextCm.Receita.AsEnumerable();
-            List<ReceitaInput> ListaReceitaInput = _mapper.Map<List<ReceitaInput>>(ListaReceita);
+            List<ReceitaOutput> ListaReceitaInput = _mapper.Map<List<ReceitaOutput>>(ListaReceita);
             return ListaReceitaInput;
         }
 
@@ -36,7 +36,7 @@ namespace CmsConfeitaria.Business
             return receita;
         }
 
-        public bool Excluir(ReceitaInput receitaInput)
+        public bool Excluir(ReceitaOutput receitaInput)
         {
             Receita receita = _mapper.Map<Receita>(receitaInput);
             _dBContextCm.Receita.Remove(receita);
@@ -44,7 +44,7 @@ namespace CmsConfeitaria.Business
             return true;
         }
 
-        public bool Adicionar(ReceitaInput receitaInput)
+        public bool Adicionar(ReceitaOutput receitaInput)
         {
             Receita receita = _mapper.Map<Receita>(receitaInput);
 
@@ -69,17 +69,17 @@ namespace CmsConfeitaria.Business
                 
         }
 
-        public ReceitaInput BuscarReceitaPorNome(string nome)
+        public ReceitaOutput BuscarReceitaPorNome(string nome)
         {
             Receita receita = _dBContextCm.Receita.Where(receita => receita.Nome == nome).FirstOrDefault();
-            ReceitaInput receitaInput = _mapper.Map<ReceitaInput>(receita);
+            ReceitaOutput receitaInput = _mapper.Map<ReceitaOutput>(receita);
             return receitaInput;
         }
 
-        public List<ReceitaInput> BuscarReceitaPorIngredientes(string ingrediente)
+        public List<ReceitaOutput> BuscarReceitaPorIngredientes(string ingrediente)
         {
             List<Receita> receita = _dBContextCm.Receita.Where(R => R.ReceitaIngredientes.Any(x => x.ingrediente.Nome.StartsWith(ingrediente))).ToList();
-            List<ReceitaInput> listaReceitaInput = _mapper.Map<List<ReceitaInput>>(receita);
+            List<ReceitaOutput> listaReceitaInput = _mapper.Map<List<ReceitaOutput>>(receita);
             return listaReceitaInput;
         }
     }

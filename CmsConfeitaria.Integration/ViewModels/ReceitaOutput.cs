@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Integration.ViewModels
 {
-    public class ReceitaInput 
+    public class ReceitaOutput 
     {
         public int Id { get; set; }
         public string Nome { get; set; }

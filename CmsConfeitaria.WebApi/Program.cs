@@ -17,6 +17,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<IngredienteProfile>();
     cfg.AddProfile<UnidadeMedidaProfile>();
     cfg.AddProfile<ComrpaProfile>();
+    cfg.AddProfile<UsuarioProfile>();
 }) ;
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -11,8 +11,8 @@ namespace CmsConfeitaria.Business.Interfaces
     public interface ICompraService
     {
         public Compra ObterCompraPorId(int id);
-        public bool adicionar(CompraInput compraInput);
-        public bool excluir(CompraInput compraInput);
-        public List<CompraInput> GetLista();
+        public bool adicionar(CompraOutput compraInput);
+        public bool excluir(CompraOutput compraInput);
+        public List<CompraOutput> GetLista();
     }
 }

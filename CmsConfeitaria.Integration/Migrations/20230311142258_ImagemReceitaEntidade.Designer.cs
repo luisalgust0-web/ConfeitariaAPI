@@ -4,6 +4,7 @@ using CmsConfeitaria.Integration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CmsConfeitaria.Integration.Migrations
 {
     [DbContext(typeof(DBContextCm))]
-    partial class DBContextCmModelSnapshot : ModelSnapshot
+    [Migration("20230311142258_ImagemReceitaEntidade")]
+    partial class ImagemReceitaEntidade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,8 +73,7 @@ namespace CmsConfeitaria.Integration.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReceitaId")
-                        .IsUnique();
+                    b.HasIndex("ReceitaId");
 
                     b.ToTable("ImagemReceita");
                 });
@@ -197,31 +199,6 @@ namespace CmsConfeitaria.Integration.Migrations
                     b.ToTable("UnidadeMedida");
                 });
 
-            modelBuilder.Entity("CmsConfeitaria.Core.Entity.Usuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("LoginNome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Usuarios");
-                });
-
             modelBuilder.Entity("CmsConfeitaria.Core.Entity.Compra", b =>
                 {
                     b.HasOne("CmsConfeitaria.Core.Entity.Ingrediente", "Ingrediente")
@@ -244,8 +221,8 @@ namespace CmsConfeitaria.Integration.Migrations
             modelBuilder.Entity("CmsConfeitaria.Core.Entity.ImagemReceita", b =>
                 {
                     b.HasOne("CmsConfeitaria.Core.Entity.Receita", "Receita")
-                        .WithOne("ImagemReceita")
-                        .HasForeignKey("CmsConfeitaria.Core.Entity.ImagemReceita", "ReceitaId")
+                        .WithMany()
+                        .HasForeignKey("ReceitaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -288,9 +265,6 @@ namespace CmsConfeitaria.Integration.Migrations
 
             modelBuilder.Entity("CmsConfeitaria.Core.Entity.Receita", b =>
                 {
-                    b.Navigation("ImagemReceita")
-                        .IsRequired();
-
                     b.Navigation("ReceitaIngredientes");
                 });
 

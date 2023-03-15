@@ -21,7 +21,7 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
         }
 
-        public bool adicionar(CompraInput compraInput)
+        public bool adicionar(CompraOutput compraInput)
         {
             Compra compra = _mapper.Map<Compra>(compraInput);
 
@@ -39,7 +39,7 @@ namespace CmsConfeitaria.Business
             }
         }
 
-        public bool excluir(CompraInput compraInput)
+        public bool excluir(CompraOutput compraInput)
         {
             Compra compra = _mapper.Map<Compra>(compraInput);
             _context.Compra.Remove(compra);
@@ -47,10 +47,10 @@ namespace CmsConfeitaria.Business
             return true;
         }
 
-        public List<CompraInput> GetLista()
+        public List<CompraOutput> GetLista()
         {
            IEnumerable<Compra> enumerableCompra = _context.Compra.AsEnumerable();
-           List<CompraInput> listaCompra = _mapper.Map<List<CompraInput>>(enumerableCompra);
+           List<CompraOutput> listaCompra = _mapper.Map<List<CompraOutput>>(enumerableCompra);
            return listaCompra;
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Integration.ViewModels
 {
-    public  class CompraInput
+    public  class CompraOutput
     {
         public int Id { get; set; }
         public int IngredienteId { get; set; }

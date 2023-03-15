@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,6 +31,8 @@ namespace CmsConfeitaria.Integration
             base.OnConfiguring(optionsBuilder);
         }
 
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<ImagemReceita> ImagemReceita { get; set; }
         public DbSet<Teste> Teste { get; set; }
         public DbSet<UnidadeMedida> UnidadeMedida { get; set; }
         public DbSet<ReceitaIngrediente> ReceitaIngrediente { get; set; }

@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Core.Entity
 {
-    public class Receita
+    public class Usuario
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Nome { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public string ModoPreparo { get; set; }
-
-        public List<ReceitaIngrediente> ReceitaIngredientes { get; set; }
-        public ImagemReceita ImagemReceita { get; set; }
+        public string LoginNome { get; set; }
+        public string Senha { get; set; }
     }
 }

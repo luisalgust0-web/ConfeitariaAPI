@@ -13,7 +13,7 @@ namespace CmsConfeitaria.Business.AutoMapperProfile
     {
         public UnidadeMedidaProfile()
         {
-            CreateMap<UnidadeMedida, UnidademedidaInput>(MemberList.None).ReverseMap();
+            CreateMap<UnidadeMedida, UnidadeMedidaOutput>(MemberList.None).ReverseMap();
         }
     }
 }

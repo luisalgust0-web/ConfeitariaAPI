@@ -11,12 +11,12 @@ namespace CmsConfeitaria.Business.Interfaces
     public interface IReceitaService
     {
      
-            bool Adicionar(ReceitaInput receitaInput);
-            bool Excluir(ReceitaInput receitaInput);
-            List<ReceitaInput> BuscarLista();
+            bool Adicionar(ReceitaOutput receitaInput);
+            bool Excluir(ReceitaOutput receitaInput);
+            List<ReceitaOutput> BuscarLista();
             Receita BuscarPorId(int id);
-            ReceitaInput BuscarReceitaPorNome(string nome);
-            List<ReceitaInput> BuscarReceitaPorIngredientes(string Ingrediente);
+            ReceitaOutput BuscarReceitaPorNome(string nome);
+            List<ReceitaOutput> BuscarReceitaPorIngredientes(string Ingrediente);
 
     }
 

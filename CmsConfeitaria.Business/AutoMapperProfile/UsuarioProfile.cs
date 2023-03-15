@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Business.AutoMapperProfile
 {
-    public class IngredienteProfile : Profile
+    public class UsuarioProfile : Profile
     {
-        public IngredienteProfile()
+        public UsuarioProfile()
         {
-            CreateMap<Ingrediente, IngredienteOutput>(MemberList.None).ReverseMap();
+            CreateMap<Usuario, UsuarioOutput>(MemberList.None).ReverseMap();
         }
     }
 }

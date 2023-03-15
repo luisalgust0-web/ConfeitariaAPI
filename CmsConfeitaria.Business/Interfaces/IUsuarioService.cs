@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Business.Interfaces
 {
-    public interface IIngredienteService
+    public interface IUsuarioService
     {
-        public List<IngredienteOutput> BuscarLista();
-        public bool Adicionar(IngredienteOutput ingredienteInput);
-        public bool Excluir(IngredienteOutput ingredienteInput);
+        public bool Adicionar(UsuarioOutput usuarioInput);
     }
 }

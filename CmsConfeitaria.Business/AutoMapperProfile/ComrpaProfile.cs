@@ -13,7 +13,7 @@ namespace CmsConfeitaria.Business.AutoMapperProfile
     {
         public ComrpaProfile()
         {
-            CreateMap<Compra, CompraInput>(MemberList.None).ReverseMap();
+            CreateMap<Compra, CompraOutput>(MemberList.None).ReverseMap();
         }
     }
 }

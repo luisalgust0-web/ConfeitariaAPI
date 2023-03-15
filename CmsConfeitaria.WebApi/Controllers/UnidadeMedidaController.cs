@@ -18,18 +18,18 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("BuscarListaUnidadeMedida")]
         public IActionResult BusacarLista()
         {
-            List<UnidademedidaInput> ListaUnidadeMediadaInput = _unidadeMedidaService.BuscarLista();
+            List<UnidadeMedidaOutput> ListaUnidadeMediadaInput = _unidadeMedidaService.BuscarLista();
             return new JsonResult(ListaUnidadeMediadaInput);
         }
         [HttpPost("AdicionarUnidadeMedida")]
-        public IActionResult Adicionar(UnidademedidaInput unidademedidaInput)
+        public IActionResult Adicionar(UnidadeMedidaOutput unidademedidaInput)
         {
             _unidadeMedidaService.Adicionar(unidademedidaInput);
             return Ok();
 
         }
         [HttpPost("RemoverUnidadeMedida")]
-        public IActionResult Remover(UnidademedidaInput unidademedidaInput)
+        public IActionResult Remover(UnidadeMedidaOutput unidademedidaInput)
         {
             _unidadeMedidaService.Excluir(unidademedidaInput);
             return Ok();

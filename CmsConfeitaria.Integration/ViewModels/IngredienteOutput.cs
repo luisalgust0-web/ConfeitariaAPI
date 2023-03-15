@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Integration.ViewModels
 {
-    public class UnidademedidaInput
+    public class IngredienteOutput
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string Sigla { get; set; }
         public DateTime DataCadastro { get; set; }
     }
 }

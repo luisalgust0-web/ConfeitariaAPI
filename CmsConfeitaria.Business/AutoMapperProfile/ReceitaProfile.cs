@@ -13,7 +13,7 @@ namespace CmsConfeitaria.Business.AutoMapperProfile
     {
         public ReceitaProfile()
         {
-            CreateMap<Receita, ReceitaInput>(MemberList.None).ReverseMap();
+            CreateMap<Receita, ReceitaOutput>(MemberList.None).ReverseMap();
         }
     }
 }

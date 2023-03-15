@@ -17,17 +17,17 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("BuscarLista")]
         public IActionResult BuscarLista()
         {
-            List<IngredienteInput> ListaIngredienteInput = _ingredienteService.BuscarLista();
+            List<IngredienteOutput> ListaIngredienteInput = _ingredienteService.BuscarLista();
             return new JsonResult(ListaIngredienteInput);
         }
         [HttpPost("AdicionarIngrediente")]
-        public IActionResult Adicionar(IngredienteInput ingredienteInput)
+        public IActionResult Adicionar(IngredienteOutput ingredienteInput)
         {
             _ingredienteService.Adicionar(ingredienteInput);
             return Ok();
         }
         [HttpPost("RemoverIngrediente")]
-        public IActionResult Remover(IngredienteInput ingredienteInput) 
+        public IActionResult Remover(IngredienteOutput ingredienteInput) 
         {
             _ingredienteService.Excluir(ingredienteInput);
             return Ok();

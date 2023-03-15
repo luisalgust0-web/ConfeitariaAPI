@@ -19,14 +19,14 @@ namespace CmsConfeitaria.WebApi.Controllers
         }
 
         [HttpPost("Adicionar")]
-        public IActionResult Adicionar(ReceitaInput receitaInput)
+        public IActionResult Adicionar(ReceitaOutput receitaInput)
         {
             _receitaService.Adicionar(receitaInput);
             return Ok();
         }
 
         [HttpPost("Excluir")]
-        public IActionResult Excluir(ReceitaInput receitaInput)
+        public IActionResult Excluir(ReceitaOutput receitaInput)
         {
             _receitaService.Excluir(receitaInput);
             return Ok();
@@ -35,7 +35,7 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("BuscarLista")]
         public IActionResult RetornarLista()
         {
-            List<ReceitaInput> receitaLista = _receitaService.BuscarLista();
+            List<ReceitaOutput> receitaLista = _receitaService.BuscarLista();
             return new JsonResult(receitaLista);
         }
 
@@ -48,13 +48,13 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("RetornarReceitaNome")]
         public IActionResult RetornarReceitaPorNome(string nome)
         {
-            ReceitaInput receita = _receitaService.BuscarReceitaPorNome(nome);
+            ReceitaOutput receita = _receitaService.BuscarReceitaPorNome(nome);
             return new JsonResult(receita);
         }
         [HttpGet("RetornarReceitasPorIngrediente")]
         public IActionResult RetornarReceitasPorIngrediente(string Ingrediente)
         {
-            List<ReceitaInput> receita = _receitaService.BuscarReceitaPorIngredientes(Ingrediente);
+            List<ReceitaOutput> receita = _receitaService.BuscarReceitaPorIngredientes(Ingrediente);
             return new JsonResult(receita);
         }
     }

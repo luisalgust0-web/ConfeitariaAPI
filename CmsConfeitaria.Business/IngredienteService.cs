@@ -22,7 +22,7 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
         }
 
-        public bool Adicionar(IngredienteInput ingredienteInput)
+        public bool Adicionar(IngredienteOutput ingredienteInput)
         {
             Ingrediente ingrediente = _mapper.Map<Ingrediente>(ingredienteInput);
 
@@ -47,14 +47,14 @@ namespace CmsConfeitaria.Business
                
         }
 
-        public List<IngredienteInput> BuscarLista()
+        public List<IngredienteOutput> BuscarLista()
         {
            IEnumerable<Ingrediente> ListaIngredientes = _context.Ingrediente.AsEnumerable();
-            List<IngredienteInput> ListaIngredientesInput = _mapper.Map<List<IngredienteInput>>(ListaIngredientes);
+            List<IngredienteOutput> ListaIngredientesInput = _mapper.Map<List<IngredienteOutput>>(ListaIngredientes);
             return ListaIngredientesInput;
         }
 
-        public bool Excluir(IngredienteInput ingredienteInput)
+        public bool Excluir(IngredienteOutput ingredienteInput)
         {
             Ingrediente ingrediente = _mapper.Map<Ingrediente>(ingredienteInput);
             _context.Ingrediente.Remove(ingrediente);

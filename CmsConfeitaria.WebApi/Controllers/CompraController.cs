@@ -19,17 +19,17 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("ListaComrpa")]
         public IActionResult GetLista()
         {
-            List<CompraInput> listaCompra = _service.GetLista();
+            List<CompraOutput> listaCompra = _service.GetLista();
             return new JsonResult(listaCompra);
         }
         [HttpPost("AdicionarCompra")]
-        public IActionResult Adicionar(CompraInput compraInput)
+        public IActionResult Adicionar(CompraOutput compraInput)
         {
             _service.adicionar(compraInput);
             return Ok();
         }
         [HttpPost("RemoverCompra")]
-        public IActionResult Remover(CompraInput compraInput)
+        public IActionResult Remover(CompraOutput compraInput)
         {
             _service.excluir(compraInput);
             return Ok();

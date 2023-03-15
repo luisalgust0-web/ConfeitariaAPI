@@ -20,13 +20,13 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
             _context = context;
         }
-        public List<UnidademedidaInput> BuscarLista()
+        public List<UnidadeMedidaOutput> BuscarLista()
         {
             IEnumerable<UnidadeMedida> ListaUnidadeMedidas = _context.UnidadeMedida.AsEnumerable();
-            List<UnidademedidaInput> ListaUnidadeMedidasInput = _mapper.Map<List<UnidademedidaInput>>(ListaUnidadeMedidas);
+            List<UnidadeMedidaOutput> ListaUnidadeMedidasInput = _mapper.Map<List<UnidadeMedidaOutput>>(ListaUnidadeMedidas);
             return ListaUnidadeMedidasInput;
         }
-        public bool Adicionar(UnidademedidaInput unidademedidaInput) 
+        public bool Adicionar(UnidadeMedidaOutput unidademedidaInput) 
         {
             UnidadeMedida unidadeMedida = _mapper.Map<UnidadeMedida>(unidademedidaInput);
 
@@ -50,7 +50,7 @@ namespace CmsConfeitaria.Business
          
         }
 
-        public bool Excluir(UnidademedidaInput unidademedidaInput)
+        public bool Excluir(UnidadeMedidaOutput unidademedidaInput)
         {
             UnidadeMedida unidadeMedida = _mapper.Map<UnidadeMedida>(unidademedidaInput);
             _context.UnidadeMedida.Remove(unidadeMedida);

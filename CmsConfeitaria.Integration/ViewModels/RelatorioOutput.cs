@@ -13,14 +13,14 @@ namespace CmsConfeitaria.Integration.ViewModels
         public string Nome { get; set; }
         public string ModoPreparo { get; set; }
         public double ValorTotalReceita { get; set; }
-        public List<IngredienteOutput> IngredienteOutputs { get; set; }
+        public List<RelatorioIngredienteOutput> IngredienteOutputs { get; set; }
 
         public RelatorioReceitaOutput()
         {
-            IngredienteOutputs = new List<IngredienteOutput>();
+            IngredienteOutputs = new List<RelatorioIngredienteOutput>();
         }
     }
-    public class IngredienteOutput
+    public class RelatorioIngredienteOutput
     {
         public string NomeIngrediente { get; set; }
         public int QuantidadeTotal { get; set; }
