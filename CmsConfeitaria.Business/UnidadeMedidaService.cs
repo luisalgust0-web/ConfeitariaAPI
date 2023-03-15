@@ -21,7 +21,7 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
             _context = context;
         }
-        public List<UnidademedidaInput> BuscarLista()
+        public List<UnidadeMedidaOutput> BuscarLista()
         {
             IEnumerable<UnidadeMedida> ListaUnidadeMedidas = _context.UnidadeMedida.AsEnumerable();
             List<UnidadeMedidaOutput> ListaUnidadeMedidasInput = _mapper.Map<List<UnidadeMedidaOutput>>(ListaUnidadeMedidas);

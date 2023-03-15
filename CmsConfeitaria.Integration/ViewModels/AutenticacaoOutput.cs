@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Integration.ViewModels
 {
-    public class AutenticacaoViewModel
+    public class AutenticacaoOutput
     {
         public string User { get; set; }
-        public string password { get; set; }
+        public string Password { get; set; }
         public DateTime Hora { get; set; }
     }
 }
