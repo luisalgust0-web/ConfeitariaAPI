@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace CmsConfeitaria.Business
 {
@@ -20,7 +21,7 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
             _context = context;
         }
-        public List<UnidadeMedidaOutput> BuscarLista()
+        public List<UnidademedidaInput> BuscarLista()
         {
             IEnumerable<UnidadeMedida> ListaUnidadeMedidas = _context.UnidadeMedida.AsEnumerable();
             List<UnidadeMedidaOutput> ListaUnidadeMedidasInput = _mapper.Map<List<UnidadeMedidaOutput>>(ListaUnidadeMedidas);
