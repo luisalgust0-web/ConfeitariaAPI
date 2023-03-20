@@ -20,7 +20,16 @@ INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Cachaça', getDate());
 INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Coco Ralado', getDate());
 INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Baunilha', getDate());
 INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Essênica de panetone', getDate());
-INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Gelarina em pó', getDate());
+INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Gelarina em pó de abacaxi', getDate());
+INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Gelarina em pó de morango', getDate());
+INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Gelarina em pó de uva', getDate());
 INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Gelarina em folha', getDate());
 INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Ovo', getDate());
 INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Farinha de trigo',  getDate());
+INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Margarina',  getDate());
+INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Mantega',  getDate());
+INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Cream Cheese',  getDate());
+INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Ricota',  getDate());
+INSERT INTO Ingrediente(nome, dataCadastro) VALUES ('Achocolatado',  getDate());
+
+
