@@ -43,6 +43,8 @@ namespace CmsConfeitaria.Integration
         {
             modelBuilder.ApplyConfiguration(new TesteConfiguration());
 
+
+
             base.OnModelCreating(modelBuilder);
         }
     }
