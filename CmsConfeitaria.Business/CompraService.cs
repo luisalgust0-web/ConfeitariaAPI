@@ -15,7 +15,7 @@ namespace CmsConfeitaria.Business
     {
         private readonly DBContextCm _context;
         private readonly IMapper _mapper;
-        public CompraService(DBContextCm dBContext,IMapper mapper)
+        public CompraService(DBContextCm dBContext, IMapper mapper)
         {
             _context = dBContext;
             _mapper = mapper;
@@ -25,7 +25,7 @@ namespace CmsConfeitaria.Business
         {
             Compra compra = _mapper.Map<Compra>(compraInput);
 
-            if(compra.Id == 0)
+            if (compra.Id == 0)
             {
                 _context.Compra.Add(compra);
                 _context.SaveChanges();
@@ -49,15 +49,15 @@ namespace CmsConfeitaria.Business
 
         public List<CompraOutput> GetLista()
         {
-           IEnumerable<Compra> enumerableCompra = _context.Compra.AsEnumerable();
-           List<CompraOutput> listaCompra = _mapper.Map<List<CompraOutput>>(enumerableCompra);
-           return listaCompra;
+            IEnumerable<Compra> enumerableCompra = _context.Compra.AsEnumerable();
+            List<CompraOutput> listaCompra = _mapper.Map<List<CompraOutput>>(enumerableCompra);
+            return listaCompra;
         }
 
         public Compra ObterCompraPorId(int id)
         {
-           Compra compra = _context.Compra.Where(x => x.Id == id).FirstOrDefault();
-           return compra;
+            Compra compra = _context.Compra.Where(x => x.Id == id).FirstOrDefault();
+            return compra;
         }
     }
 }

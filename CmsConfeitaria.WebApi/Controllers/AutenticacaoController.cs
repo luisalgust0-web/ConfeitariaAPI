@@ -1,4 +1,7 @@
-﻿using CmsConfeitaria.Integration.ViewModels;
+﻿using CmsConfeitaria.Business;
+using CmsConfeitaria.Core.Entity;
+using CmsConfeitaria.Integration;
+using CmsConfeitaria.Integration.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +11,17 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class AutenticacaoController : ControllerBase
     {
-        [HttpPost]
+        private readonly AutenticacaoService _service;
+        public AutenticacaoController(AutenticacaoService service)
+        {
+            _service = service;
+        }
+
+        [HttpPost("Autenticar")]
         public AutenticacaoOutput Autenticar(AutenticacaoInput input)
         {
-            AutenticacaoOutput model = new AutenticacaoOutput() { Hora = DateTime.Now, Password = "validpassword", User = "validuser" };
-
-            return model;
+            AutenticacaoOutput aut = _service.EstaAutenticado(input);
+            return aut;
         }
     }
 }

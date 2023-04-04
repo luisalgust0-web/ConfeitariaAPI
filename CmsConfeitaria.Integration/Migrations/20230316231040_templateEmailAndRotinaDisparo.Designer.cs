@@ -4,6 +4,7 @@ using CmsConfeitaria.Integration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CmsConfeitaria.Integration.Migrations
 {
     [DbContext(typeof(DBContextCm))]
-    partial class DBContextCmModelSnapshot : ModelSnapshot
+    [Migration("20230316231040_templateEmailAndRotinaDisparo")]
+    partial class templateEmailAndRotinaDisparo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,15 +168,12 @@ namespace CmsConfeitaria.Integration.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Intervalo")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TipoIntervalo")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

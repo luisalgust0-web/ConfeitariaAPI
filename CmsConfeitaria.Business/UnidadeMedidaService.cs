@@ -27,7 +27,7 @@ namespace CmsConfeitaria.Business
             List<UnidadeMedidaOutput> ListaUnidadeMedidasInput = _mapper.Map<List<UnidadeMedidaOutput>>(ListaUnidadeMedidas);
             return ListaUnidadeMedidasInput;
         }
-        public bool Adicionar(UnidadeMedidaOutput unidademedidaInput) 
+        public bool Adicionar(UnidadeMedidaOutput unidademedidaInput)
         {
             UnidadeMedida unidadeMedida = _mapper.Map<UnidadeMedida>(unidademedidaInput);
 
@@ -48,7 +48,6 @@ namespace CmsConfeitaria.Business
             }
             else
                 throw new Exception("nome ou sigla já existente");
-         
         }
 
         public bool Excluir(UnidadeMedidaOutput unidademedidaInput)

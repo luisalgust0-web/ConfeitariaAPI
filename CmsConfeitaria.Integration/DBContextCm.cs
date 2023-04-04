@@ -31,6 +31,8 @@ namespace CmsConfeitaria.Integration
             base.OnConfiguring(optionsBuilder);
         }
 
+        public DbSet<TemplateEmail> TemplateEmails { get; set; }
+        public DbSet<RotinaDisparo> RotinaDisparos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<ImagemReceita> ImagemReceita { get; set; }
         public DbSet<Teste> Teste { get; set; }

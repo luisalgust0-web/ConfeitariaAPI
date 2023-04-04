@@ -4,6 +4,7 @@ using CmsConfeitaria.Integration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CmsConfeitaria.Integration.Migrations
 {
     [DbContext(typeof(DBContextCm))]
-    partial class DBContextCmModelSnapshot : ModelSnapshot
+    [Migration("20230317184823_TemplateAndRotinaConfiguration2")]
+    partial class TemplateAndRotinaConfiguration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

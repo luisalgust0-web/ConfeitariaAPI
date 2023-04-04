@@ -20,7 +20,9 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<UnidadeMedidaProfile>();
     cfg.AddProfile<ComrpaProfile>();
     cfg.AddProfile<UsuarioProfile>();
-}) ;
+    cfg.AddProfile<RotinaProfile>();
+    cfg.AddProfile<TempalteEmailProfile>();
+});
 
 
 builder.Services.AddControllers();

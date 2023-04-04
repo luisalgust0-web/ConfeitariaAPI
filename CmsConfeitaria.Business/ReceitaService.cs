@@ -66,7 +66,7 @@ namespace CmsConfeitaria.Business
             else
                 return false;
 
-                
+
         }
 
         public ReceitaOutput BuscarReceitaPorNome(string nome)

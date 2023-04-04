@@ -15,8 +15,8 @@ namespace CmsConfeitaria.Integration.Configuration
         {
             builder.ToTable("ReceitaIngrediente");
             builder.HasKey(e => e.Id);
-            builder.Property(s => s.Id).HasColumnName("Id"); 
-            builder.Property(s => s.Quantidade).HasColumnName("Qantidade"); 
+            builder.Property(s => s.Id).HasColumnName("Id");
+            builder.Property(s => s.Quantidade).HasColumnName("Qantidade");
             builder.Property(s => s.DataCadastro).HasColumnName("DataCadastro");
 
             builder.HasOne(s => s.ingrediente).WithMany(s => s.ReceitaIngredientes).HasForeignKey(s => s.IngredienteId);
