@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CmsConfeitaria.Core.Entity;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace CmsConfeitaria.Business.AutoMapperProfile
     {
         public IngredienteProfile()
         {
-            CreateMap<Ingrediente, IngredienteOutput>(MemberList.None).ReverseMap();
+            CreateMap<Ingrediente, IngredienteOutput>(MemberList.None);
+
+            CreateMap<IngredienteInput, IngredienteOutput>(MemberList.None);
         }
     }
 }

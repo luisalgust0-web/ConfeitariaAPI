@@ -2,7 +2,8 @@
 using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,10 @@ namespace CmsConfeitaria.Business
         public List<UnidadeMedidaOutput> BuscarLista()
         {
             IEnumerable<UnidadeMedida> ListaUnidadeMedidas = _context.UnidadeMedida.AsEnumerable();
-            List<UnidadeMedidaOutput> ListaUnidadeMedidasInput = _mapper.Map<List<UnidadeMedidaOutput>>(ListaUnidadeMedidas);
-            return ListaUnidadeMedidasInput;
+            List<UnidadeMedidaOutput> ListaUnidadeMedidasOutput = _mapper.Map<List<UnidadeMedidaOutput>>(ListaUnidadeMedidas);
+            return ListaUnidadeMedidasOutput;
         }
-        public bool Adicionar(UnidadeMedidaOutput unidademedidaInput)
+        public bool Adicionar(UnidadeMedidaInput unidademedidaInput)
         {
             UnidadeMedida unidadeMedida = _mapper.Map<UnidadeMedida>(unidademedidaInput);
 
@@ -47,10 +48,10 @@ namespace CmsConfeitaria.Business
                 }
             }
             else
-                throw new Exception("nome ou sigla já existente");
+                throw new CmsException("nome ou sigla já existente");
         }
 
-        public bool Excluir(UnidadeMedidaOutput unidademedidaInput)
+        public bool Excluir(UnidadeMedidaInput unidademedidaInput)
         {
             UnidadeMedida unidadeMedida = _mapper.Map<UnidadeMedida>(unidademedidaInput);
             _context.UnidadeMedida.Remove(unidadeMedida);

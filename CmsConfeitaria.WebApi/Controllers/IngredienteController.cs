@@ -1,6 +1,7 @@
 ﻿using CmsConfeitaria.Business;
 using CmsConfeitaria.Business.Interfaces;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace CmsConfeitaria.WebApi.Controllers
             _ingredienteService = ingredienteService;
         }
 
-        [Authorize()]
+        //[Authorize()]
         [HttpGet("BuscarLista")]
         public IActionResult BuscarLista()
         {
@@ -24,13 +25,13 @@ namespace CmsConfeitaria.WebApi.Controllers
             return new JsonResult(ListaIngredienteInput);
         }
         [HttpPost("AdicionarIngrediente")]
-        public IActionResult Adicionar(IngredienteOutput ingredienteInput)
+        public IActionResult Adicionar(IngredienteInput ingredienteInput)
         {
             _ingredienteService.Adicionar(ingredienteInput);
             return Ok();
         }
         [HttpPost("RemoverIngrediente")]
-        public IActionResult Remover(IngredienteOutput ingredienteInput) 
+        public IActionResult Remover(IngredienteInput ingredienteInput)
         {
             _ingredienteService.Excluir(ingredienteInput);
             return Ok();

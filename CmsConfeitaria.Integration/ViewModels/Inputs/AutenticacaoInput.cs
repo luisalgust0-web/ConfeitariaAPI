@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Integration.ViewModels
+namespace CmsConfeitaria.Integration.ViewModels.Inputs
 {
     public class AutenticacaoInput
     {

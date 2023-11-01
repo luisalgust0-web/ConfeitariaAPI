@@ -6,7 +6,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Integration.ViewModels
+namespace CmsConfeitaria.Integration.ViewModels.Inputs
 {
     public class RelatorioReceitaOutput
     {
@@ -27,5 +27,5 @@ namespace CmsConfeitaria.Integration.ViewModels
         public double ValorCalculo { get; set; }
         public double QuantidadeReceita { get; set; }
     }
-    
+
 }

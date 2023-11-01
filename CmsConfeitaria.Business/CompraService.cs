@@ -2,7 +2,9 @@
 using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +23,7 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
         }
 
-        public bool adicionar(CompraOutput compraInput)
+        public bool Adicionar(CompraInput compraInput)
         {
             Compra compra = _mapper.Map<Compra>(compraInput);
 
@@ -39,7 +41,7 @@ namespace CmsConfeitaria.Business
             }
         }
 
-        public bool excluir(CompraOutput compraInput)
+        public bool Excluir(CompraInput compraInput)
         {
             Compra compra = _mapper.Map<Compra>(compraInput);
             _context.Compra.Remove(compra);
@@ -49,15 +51,16 @@ namespace CmsConfeitaria.Business
 
         public List<CompraOutput> GetLista()
         {
-            IEnumerable<Compra> enumerableCompra = _context.Compra.AsEnumerable();
+            IEnumerable<Compra> enumerableCompra = _context.Compra.Include(x => x.Ingrediente).Include(x => x.UnidadeMedida).AsEnumerable();
             List<CompraOutput> listaCompra = _mapper.Map<List<CompraOutput>>(enumerableCompra);
             return listaCompra;
         }
 
-        public Compra ObterCompraPorId(int id)
+        public CompraOutput ObterCompraPorId(int id)
         {
-            Compra compra = _context.Compra.Where(x => x.Id == id).FirstOrDefault();
-            return compra;
+            Compra compra = _context.Compra.Where(x => x.Id == id).Include(x => x.Ingrediente).Include(x => x.UnidadeMedida).FirstOrDefault();
+            CompraOutput compraOutput = _mapper.Map<CompraOutput>(compra);
+            return compraOutput;
         }
     }
 }

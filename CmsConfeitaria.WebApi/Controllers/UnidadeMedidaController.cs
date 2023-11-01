@@ -1,6 +1,7 @@
 ﻿using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Core.Entity;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,14 +23,14 @@ namespace CmsConfeitaria.WebApi.Controllers
             return new JsonResult(ListaUnidadeMediadaInput);
         }
         [HttpPost("AdicionarUnidadeMedida")]
-        public IActionResult Adicionar(UnidadeMedidaOutput unidademedidaInput)
+        public IActionResult Adicionar(UnidadeMedidaInput unidademedidaInput)
         {
             _unidadeMedidaService.Adicionar(unidademedidaInput);
             return Ok();
 
         }
         [HttpPost("RemoverUnidadeMedida")]
-        public IActionResult Remover(UnidadeMedidaOutput unidademedidaInput)
+        public IActionResult Remover(UnidadeMedidaInput unidademedidaInput)
         {
             _unidadeMedidaService.Excluir(unidademedidaInput);
             return Ok();

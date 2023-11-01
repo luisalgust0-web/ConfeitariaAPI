@@ -4,6 +4,7 @@ using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
 using CmsConfeitaria.WebApi;
 using CmsConfeitaria.WebApi.Handlers;
+using CmsConfeitaria.WebApi.Middleware;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -74,6 +75,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowMyOrigin");
 
 //app.UseMiddleware<AutenticatioHandler>();
+app.UseMiddleware<ErroMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 

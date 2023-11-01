@@ -1,5 +1,6 @@
 ﻿using CmsConfeitaria.Core.Entity;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace CmsConfeitaria.Business.Interfaces
     public interface IIngredienteService
     {
         public List<IngredienteOutput> BuscarLista();
-        public bool Adicionar(IngredienteOutput ingredienteInput);
-        public bool Excluir(IngredienteOutput ingredienteInput);
+        public bool Adicionar(IngredienteInput ingredienteInput);
+        public bool Excluir(IngredienteInput ingredienteInput);
     }
 }

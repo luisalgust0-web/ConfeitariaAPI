@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Integration.ViewModels
+namespace CmsConfeitaria.Integration.ViewModels.Outputs
 {
-    public class UsuarioOutput
+    public class IngredienteOutput
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string LoginNome { get; set; }
-        public string Senha { get; set; }
+        public DateTime DataCadastro { get; set; }
     }
 }

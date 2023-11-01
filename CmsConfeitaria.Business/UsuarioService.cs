@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace CmsConfeitaria.Business.Interfaces
         {
             _context = context;
             _mapper = mapper;        }
-        public bool Adicionar(UsuarioOutput usuarioInput)
+        public bool Adicionar(UsuarioInput usuarioInput)
         {
             Usuario usuario = _mapper.Map<Usuario>(usuarioInput);
             

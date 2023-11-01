@@ -1,5 +1,6 @@
 ﻿using CmsConfeitaria.Core.Entity;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace CmsConfeitaria.Business.Interfaces
     public interface IUnidadeMedidaService
     {
         public List<UnidadeMedidaOutput> BuscarLista();
-        public bool Adicionar(UnidadeMedidaOutput unidademedidaInput);
-        public bool Excluir(UnidadeMedidaOutput unidademedidaInput);
+        public bool Adicionar(UnidadeMedidaInput unidademedidaInput);
+        public bool Excluir(UnidadeMedidaInput unidademedidaInput);
     }
 }

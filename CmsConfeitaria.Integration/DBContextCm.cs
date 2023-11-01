@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace CmsConfeitaria.Integration
 {
     // 
-    public class DBContextCm:DbContext
+    public class DBContextCm : DbContext
     {
         public DBContextCm(DbContextOptions options) : base(options)
         {

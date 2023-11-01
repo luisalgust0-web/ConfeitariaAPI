@@ -1,7 +1,9 @@
 ﻿using CmsConfeitaria.Business;
+using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +13,8 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class AutenticacaoController : ControllerBase
     {
-        private readonly AutenticacaoService _service;
-        public AutenticacaoController(AutenticacaoService service)
+        private readonly IAutenticacaoServie _service;
+        public AutenticacaoController(IAutenticacaoServie service)
         {
             _service = service;
         }

@@ -2,13 +2,17 @@
 using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.Migrations;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace CmsConfeitaria.Business
 {
@@ -25,18 +29,18 @@ namespace CmsConfeitaria.Business
         public List<ReceitaOutput> BuscarLista()
         {
             IEnumerable<Receita> ListaReceita = _dBContextCm.Receita.AsEnumerable();
-            List<ReceitaOutput> ListaReceitaInput = _mapper.Map<List<ReceitaOutput>>(ListaReceita);
-            return ListaReceitaInput;
+            List<ReceitaOutput> listReceitaOutputs = _mapper.Map<List<ReceitaOutput>>(ListaReceita);
+            return listReceitaOutputs;
         }
 
-        public Receita BuscarPorId(int id)
+        public ReceitaOutput BuscarPorId(int id)
         {
             var consulta = _dBContextCm.Receita.Where(x => x.Id == id).Include(s => s.ReceitaIngredientes).ThenInclude(s => s.ingrediente).ThenInclude(s => s.Compras);
-            Receita receita = consulta.FirstOrDefault();
-            return receita;
+            ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(consulta.FirstOrDefault());
+            return receitaOutput;
         }
 
-        public bool Excluir(ReceitaOutput receitaInput)
+        public bool Excluir(ReceitaInput receitaInput)
         {
             Receita receita = _mapper.Map<Receita>(receitaInput);
             _dBContextCm.Receita.Remove(receita);
@@ -44,7 +48,7 @@ namespace CmsConfeitaria.Business
             return true;
         }
 
-        public bool Adicionar(ReceitaOutput receitaInput)
+        public ReceitaOutput Adicionar(ReceitaInput receitaInput)
         {
             Receita receita = _mapper.Map<Receita>(receitaInput);
 
@@ -52,19 +56,35 @@ namespace CmsConfeitaria.Business
             {
                 if (receita.Id == 0)
                 {
-                    _dBContextCm.Receita.Add(receita);
-                    _dBContextCm.SaveChanges();
-                    return true;
+                    using (TransactionScope scope = new TransactionScope())
+                    {
+                        _dBContextCm.Receita.Add(receita);
+                        _dBContextCm.SaveChanges();
+                        ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(receita);
+                        MemoryStream memoryStream = new MemoryStream();
+
+                        ImagemReceita imagemReceita = new ImagemReceita();
+                        receitaInput.ImagemFile.CopyTo(memoryStream);
+                        imagemReceita.ImagemFile = memoryStream.ToArray();
+                        imagemReceita.ReceitaId = receitaOutput.Id;
+                        _dBContextCm.ImagemReceita.Add(imagemReceita);
+                        _dBContextCm.SaveChanges();
+
+                        scope.Complete();
+
+                        return receitaOutput;
+                    }
                 }
                 else
                 {
                     _dBContextCm.Receita.Update(receita);
                     _dBContextCm.SaveChanges();
-                    return true;
+                    ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(receita);
+                    return receitaOutput;
                 }
             }
             else
-                return false;
+                throw new CmsException("Receita já existente");
 
 
         }
@@ -72,15 +92,15 @@ namespace CmsConfeitaria.Business
         public ReceitaOutput BuscarReceitaPorNome(string nome)
         {
             Receita receita = _dBContextCm.Receita.Where(receita => receita.Nome == nome).FirstOrDefault();
-            ReceitaOutput receitaInput = _mapper.Map<ReceitaOutput>(receita);
-            return receitaInput;
+            ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(receita);
+            return receitaOutput;
         }
 
         public List<ReceitaOutput> BuscarReceitaPorIngredientes(string ingrediente)
         {
             List<Receita> receita = _dBContextCm.Receita.Where(R => R.ReceitaIngredientes.Any(x => x.ingrediente.Nome.StartsWith(ingrediente))).ToList();
-            List<ReceitaOutput> listaReceitaInput = _mapper.Map<List<ReceitaOutput>>(receita);
-            return listaReceitaInput;
+            List<ReceitaOutput> listaReceitaOutput = _mapper.Map<List<ReceitaOutput>>(receita);
+            return listaReceitaOutput;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using CmsConfeitaria.Business.Interfaces;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +17,7 @@ namespace CmsConfeitaria.WebApi.Controllers
         }
 
         [HttpPost("AdicionarUsuario")]
-        public IActionResult Adicionar(UsuarioOutput usuario)
+        public IActionResult Adicionar(UsuarioInput usuario)
         {
             _service.Adicionar(usuario);
             return Ok();
