@@ -9,7 +9,7 @@ namespace CmsConfeitaria.Core.Entity
     public class ImagemReceita
     {
         public int Id { get; set; }
-        public byte[]? Imagem { get; set; }
+        public byte[]? File { get; set; }
         public int ReceitaId { get; set; }
 
         public Receita Receita { get; set; }

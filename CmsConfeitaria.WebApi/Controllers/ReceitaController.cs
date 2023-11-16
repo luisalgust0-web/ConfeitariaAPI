@@ -22,6 +22,7 @@ namespace CmsConfeitaria.WebApi.Controllers
         public IActionResult Adicionar(ReceitaOutput receitaInput)
         {
             _receitaService.Adicionar(receitaInput);
+
             return Ok();
         }
 
