@@ -22,14 +22,8 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpPost("Adicionar")]
         public IActionResult Adicionar([FromForm] ReceitaInput receitaInput)
         {
-<<<<<<< HEAD
-            _receitaService.Adicionar(receitaInput);
-
-            return Ok();
-=======
             ReceitaOutput receita = _receitaService.Adicionar(receitaInput);
             return new JsonResult(receita);
->>>>>>> ace6998ca0dae0047ecbf6a867f07d3e0d446c0b
         }
 
         [HttpPost("Excluir")]

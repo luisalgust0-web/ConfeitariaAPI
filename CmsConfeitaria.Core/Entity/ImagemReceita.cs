@@ -12,11 +12,8 @@ namespace CmsConfeitaria.Core.Entity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-<<<<<<< HEAD
-        public byte[]? File { get; set; }
-=======
         public byte[]? ImagemFile { get; set; }
->>>>>>> ace6998ca0dae0047ecbf6a867f07d3e0d446c0b
+        public byte[]? File { get; set; }
         public int ReceitaId { get; set; }
 
         public Receita Receita { get; set; }
