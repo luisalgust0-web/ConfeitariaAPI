@@ -1,5 +1,5 @@
 ﻿using CmsConfeitaria.Core.Entity;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,6 @@ namespace CmsConfeitaria.Business.Interfaces
 {
     public interface IUsuarioService
     {
-        public bool Adicionar(UsuarioOutput usuarioInput);
+        public bool Adicionar(UsuarioInput usuarioInput);
     }
 }

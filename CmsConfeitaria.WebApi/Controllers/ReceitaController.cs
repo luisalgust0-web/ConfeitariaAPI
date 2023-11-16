@@ -1,6 +1,7 @@
 ﻿using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Core.Entity;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -19,15 +20,20 @@ namespace CmsConfeitaria.WebApi.Controllers
         }
 
         [HttpPost("Adicionar")]
-        public IActionResult Adicionar(ReceitaOutput receitaInput)
+        public IActionResult Adicionar([FromForm] ReceitaInput receitaInput)
         {
+<<<<<<< HEAD
             _receitaService.Adicionar(receitaInput);
 
             return Ok();
+=======
+            ReceitaOutput receita = _receitaService.Adicionar(receitaInput);
+            return new JsonResult(receita);
+>>>>>>> ace6998ca0dae0047ecbf6a867f07d3e0d446c0b
         }
 
         [HttpPost("Excluir")]
-        public IActionResult Excluir(ReceitaOutput receitaInput)
+        public IActionResult Excluir(ReceitaInput receitaInput)
         {
             _receitaService.Excluir(receitaInput);
             return Ok();
@@ -43,7 +49,7 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("RetornarReceitaId")]
         public IActionResult RetornarReceitaPorId(int id)
         {
-            Receita receita = _receitaService.BuscarPorId(id);
+            ReceitaOutput receita = _receitaService.BuscarPorId(id);
             return new JsonResult(receita);
         }
         [HttpGet("RetornarReceitaNome")]

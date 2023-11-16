@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Integration.ViewModels
+namespace CmsConfeitaria.Integration.ViewModels.Inputs
 {
-    public  class CompraOutput
+    public class CompraInput
     {
         public int Id { get; set; }
         public int IngredienteId { get; set; }

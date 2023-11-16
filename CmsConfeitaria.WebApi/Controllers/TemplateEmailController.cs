@@ -1,5 +1,5 @@
 ﻿using CmsConfeitaria.Business.Interfaces;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

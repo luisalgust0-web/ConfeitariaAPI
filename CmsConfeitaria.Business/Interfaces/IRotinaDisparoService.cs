@@ -1,4 +1,4 @@
-﻿using CmsConfeitaria.Integration.ViewModels;
+﻿using CmsConfeitaria.Integration.ViewModels.Inputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,7 @@
 ﻿using CmsConfeitaria.Business;
 using CmsConfeitaria.Business.Interfaces;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CmsConfeitaria.WebApi.Controllers
@@ -9,7 +10,7 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class CompraController : ControllerBase
     {
-        private readonly ICompraService _service; 
+        private readonly ICompraService _service;
 
         public CompraController(ICompraService service)
         {
@@ -23,15 +24,15 @@ namespace CmsConfeitaria.WebApi.Controllers
             return new JsonResult(listaCompra);
         }
         [HttpPost("AdicionarCompra")]
-        public IActionResult Adicionar(CompraOutput compraInput)
+        public IActionResult Adicionar(CompraInput compraInput)
         {
-            _service.adicionar(compraInput);
+            _service.Adicionar(compraInput);
             return Ok();
         }
         [HttpPost("RemoverCompra")]
-        public IActionResult Remover(CompraOutput compraInput)
+        public IActionResult Remover(CompraInput compraInput)
         {
-            _service.excluir(compraInput);
+            _service.Excluir(compraInput);
             return Ok();
         }
     }

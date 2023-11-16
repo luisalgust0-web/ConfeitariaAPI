@@ -1,6 +1,7 @@
 ﻿using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -29,7 +30,7 @@ namespace CmsConfeitaria.Business
                 return model;
             }
             else
-                return null;
+                throw new CmsException("Usuario ou senha incorreto");
         }
     }
 }

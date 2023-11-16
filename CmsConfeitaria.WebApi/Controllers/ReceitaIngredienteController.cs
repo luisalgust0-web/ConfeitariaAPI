@@ -1,6 +1,7 @@
 ﻿using CmsConfeitaria.Business;
 using CmsConfeitaria.Business.Interfaces;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace CmsConfeitaria.WebApi.Controllers
             _receitaIngredienteService = receitaIngredienteService;
         }
         [HttpPost("Adicionar")]
-        public IActionResult Adicionar(ReceitaIngredienteOutput receitaIngredienteInput)
+        public IActionResult Adicionar(ReceitaIngredienteInput receitaIngredienteInput)
         {
             _receitaIngredienteService.Adicionar(receitaIngredienteInput);
             return Ok();
@@ -34,7 +35,7 @@ namespace CmsConfeitaria.WebApi.Controllers
             return new JsonResult(receitaIngredienteInputs);
         }
         [HttpPost("RemoverReceitaIngrediente")]
-        public IActionResult Remover(ReceitaIngredienteOutput receitaIngredienteInput)
+        public IActionResult Remover(ReceitaIngredienteInput receitaIngredienteInput)
         {
             _receitaIngredienteService.Excluir(receitaIngredienteInput);
             return Ok();

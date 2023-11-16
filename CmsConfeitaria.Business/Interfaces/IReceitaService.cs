@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 
 namespace CmsConfeitaria.Business.Interfaces
 {
     public interface IReceitaService
     {
-     
-            bool Adicionar(ReceitaOutput receitaInput);
-            bool Excluir(ReceitaOutput receitaInput);
-            List<ReceitaOutput> BuscarLista();
-            Receita BuscarPorId(int id);
-            ReceitaOutput BuscarReceitaPorNome(string nome);
-            List<ReceitaOutput> BuscarReceitaPorIngredientes(string Ingrediente);
+
+        ReceitaOutput Adicionar(ReceitaInput receitaInput);
+        bool Excluir(ReceitaInput receitaInput);
+        List<ReceitaOutput> BuscarLista();
+        ReceitaOutput BuscarPorId(int id);
+        ReceitaOutput BuscarReceitaPorNome(string nome);
+        List<ReceitaOutput> BuscarReceitaPorIngredientes(string Ingrediente);
 
     }
 

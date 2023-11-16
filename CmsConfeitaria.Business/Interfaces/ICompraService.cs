@@ -1,5 +1,6 @@
 ﻿using CmsConfeitaria.Core.Entity;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace CmsConfeitaria.Business.Interfaces
 {
     public interface ICompraService
     {
-        public Compra ObterCompraPorId(int id);
-        public bool adicionar(CompraOutput compraInput);
-        public bool excluir(CompraOutput compraInput);
+        public CompraOutput ObterCompraPorId(int id);
+        public bool Adicionar(CompraInput compraInput);
+        public bool Excluir(CompraInput compraInput);
         public List<CompraOutput> GetLista();
     }
 }

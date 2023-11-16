@@ -62,7 +62,7 @@ namespace CmsConfeitaria.Integration.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("Imagem")
+                    b.Property<byte[]>("ImagemFile")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<int>("ReceitaId")

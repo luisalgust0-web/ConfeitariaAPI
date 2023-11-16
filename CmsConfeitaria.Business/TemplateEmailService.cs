@@ -2,7 +2,7 @@
 using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

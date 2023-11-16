@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CmsConfeitaria.Core.Entity;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace CmsConfeitaria.Business.AutoMapperProfile
     {
         public UnidadeMedidaProfile()
         {
-            CreateMap<UnidadeMedida, UnidadeMedidaOutput>(MemberList.None).ReverseMap();
+            CreateMap<UnidadeMedida, UnidadeMedidaOutput>(MemberList.None);
+
+            CreateMap<UnidadeMedidaInput, UnidadeMedida>(MemberList.None);
         }
     }
 }

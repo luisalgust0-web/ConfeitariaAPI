@@ -2,7 +2,8 @@
 using CmsConfeitaria.Business.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.ViewModels;
+using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,7 +23,7 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
         }
 
-        public bool Adicionar(IngredienteOutput ingredienteInput)
+        public bool Adicionar(IngredienteInput ingredienteInput)
         {
             Ingrediente ingrediente = _mapper.Map<Ingrediente>(ingredienteInput);
 
@@ -36,25 +37,25 @@ namespace CmsConfeitaria.Business
                 }
                 else
                 {
+
                     _context.Ingrediente.Update(ingrediente);
                     _context.SaveChanges();
                     return true;
                 }
             }
             else
-                throw new Exception("nome já existente");
-                
-               
+                throw new CmsException("Ingrediente já existente");
+
         }
 
         public List<IngredienteOutput> BuscarLista()
         {
-           IEnumerable<Ingrediente> ListaIngredientes = _context.Ingrediente.AsEnumerable();
+            IEnumerable<Ingrediente> ListaIngredientes = _context.Ingrediente.AsEnumerable();
             List<IngredienteOutput> ListaIngredientesInput = _mapper.Map<List<IngredienteOutput>>(ListaIngredientes);
             return ListaIngredientesInput;
         }
 
-        public bool Excluir(IngredienteOutput ingredienteInput)
+        public bool Excluir(IngredienteInput ingredienteInput)
         {
             Ingrediente ingrediente = _mapper.Map<Ingrediente>(ingredienteInput);
             _context.Ingrediente.Remove(ingrediente);

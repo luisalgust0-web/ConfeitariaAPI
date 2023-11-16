@@ -17,6 +17,7 @@ namespace CmsConfeitaria.WebApi
             serviceCollection.AddScoped<IUsuarioService, UsuarioService>();
             serviceCollection.AddScoped<IRotinaDisparoService, RotinaDisparoService>();
             serviceCollection.AddScoped<ITemplateEmailService, TemplateEmailService>();
+            serviceCollection.AddScoped<IAutenticacaoServie, AutenticacaoService>();
             return serviceCollection;
         }
 

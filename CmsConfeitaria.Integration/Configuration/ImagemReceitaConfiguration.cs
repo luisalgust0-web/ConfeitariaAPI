@@ -17,7 +17,7 @@ namespace CmsConfeitaria.Integration.Configuration
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).HasColumnName("Id");
-            builder.Property(x => x.Imagem).HasColumnName("Imagem");
+            builder.Property(x => x.ImagemFile).HasColumnName("Imagem");
             builder.Property(x => x.Receita).HasColumnName("Receita");
 
             builder.HasOne(s => s.Receita).WithOne(s => s.ImagemReceita).HasForeignKey("ReceitaId");
