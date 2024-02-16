@@ -12,5 +12,6 @@ namespace CmsConfeitaria.Integration.ViewModels.Outputs
         public string Nome { get; set; }
         public DateTime DataCadastro { get; set; }
         public string ModoPreparo { get; set; }
+        public IFormFile? File { get; set; }
     }
 }

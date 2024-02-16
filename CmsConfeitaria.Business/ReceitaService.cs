@@ -51,6 +51,7 @@ namespace CmsConfeitaria.Business
         public ReceitaOutput EnviarReceita(ReceitaInput receitaInput)
         {
             Receita receita = _mapper.Map<Receita>(receitaInput);
+            ImagemReceita imagemReceita = _mapper.Map<ImagemReceita>(receitaInput.File);
 
             if (!_dBContextCm.Receita.Any(x => x.Nome.ToLower() == receita.Nome.ToLower()))
             {
