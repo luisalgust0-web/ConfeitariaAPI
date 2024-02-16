@@ -23,7 +23,7 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
         }
 
-        public bool Adicionar(IngredienteInput ingredienteInput)
+        public IngredienteOutput EnviarIngrediente(IngredienteInput ingredienteInput)
         {
             Ingrediente ingrediente = _mapper.Map<Ingrediente>(ingredienteInput);
 
@@ -33,14 +33,14 @@ namespace CmsConfeitaria.Business
                 {
                     _context.Ingrediente.Add(ingrediente);
                     _context.SaveChanges();
-                    return true;
+                    return _mapper.Map<IngredienteOutput>(ingrediente);
                 }
                 else
                 {
 
                     _context.Ingrediente.Update(ingrediente);
                     _context.SaveChanges();
-                    return true;
+                    return _mapper.Map<IngredienteOutput>(ingrediente);
                 }
             }
             else
@@ -48,19 +48,26 @@ namespace CmsConfeitaria.Business
 
         }
 
-        public List<IngredienteOutput> BuscarLista()
+        public List<IngredienteOutput> CarregarListaIngredientes()
         {
             IEnumerable<Ingrediente> ListaIngredientes = _context.Ingrediente.AsEnumerable();
             List<IngredienteOutput> ListaIngredientesInput = _mapper.Map<List<IngredienteOutput>>(ListaIngredientes);
             return ListaIngredientesInput;
         }
 
-        public bool Excluir(IngredienteInput ingredienteInput)
+        public bool ExcluirIngrediente(int ingredienteId)
         {
-            Ingrediente ingrediente = _mapper.Map<Ingrediente>(ingredienteInput);
+            Ingrediente ingrediente = _context.Ingrediente.Find(ingredienteId);
             _context.Ingrediente.Remove(ingrediente);
             _context.SaveChanges();
             return true;
+        }
+
+        public IngredienteOutput ObterIngrediente(int id)
+        {
+            Ingrediente ingrediente = _context.Ingrediente.Find(id);
+            IngredienteOutput ingredienteOutput = _mapper.Map<IngredienteOutput>(ingrediente);
+            return ingredienteOutput;
         }
     }
 }

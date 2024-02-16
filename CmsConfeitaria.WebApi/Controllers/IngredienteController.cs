@@ -18,22 +18,30 @@ namespace CmsConfeitaria.WebApi.Controllers
         }
 
         //[Authorize()]
-        [HttpGet("BuscarLista")]
-        public IActionResult BuscarLista()
+        [HttpGet("CarregarListaIngredientes")]
+        public IActionResult CarregarListaIngredientes()
         {
-            List<IngredienteOutput> ListaIngredienteInput = _ingredienteService.BuscarLista();
-            return new JsonResult(ListaIngredienteInput);
+            List<IngredienteOutput> ListaIngredienteOutput = _ingredienteService.CarregarListaIngredientes();
+            return new JsonResult(ListaIngredienteOutput);
         }
-        [HttpPost("AdicionarIngrediente")]
-        public IActionResult Adicionar(IngredienteInput ingredienteInput)
+
+        [HttpGet("CarregarIngrediente/{id}")]
+        public IActionResult CarregarIngrediente(int id)
         {
-            _ingredienteService.Adicionar(ingredienteInput);
-            return Ok();
+            IngredienteOutput ingredienteOutput = _ingredienteService.ObterIngrediente(id);
+            return new JsonResult(ingredienteOutput);
         }
-        [HttpPost("RemoverIngrediente")]
-        public IActionResult Remover(IngredienteInput ingredienteInput)
+
+        [HttpPost("EnviarIngrediente")]
+        public IActionResult EnviarIngrediente(IngredienteInput ingredienteInput)
         {
-            _ingredienteService.Excluir(ingredienteInput);
+            return new JsonResult(_ingredienteService.EnviarIngrediente(ingredienteInput));
+        }
+
+        [HttpDelete("RemoverIngrediente/{id}")]
+        public IActionResult Remover(int id)
+        {
+            _ingredienteService.ExcluirIngrediente(id);
             return Ok();
         }
     }

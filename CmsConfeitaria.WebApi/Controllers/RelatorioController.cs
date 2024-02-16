@@ -16,7 +16,7 @@ namespace CmsConfeitaria.WebApi.Controllers
         private readonly IRelatorioService _service;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IReceitaService _receitaService;
-        public RelatorioController(IRelatorioService service, IWebHostEnvironment webHostEnvironment,IReceitaService receitaService)
+        public RelatorioController(IRelatorioService service, IWebHostEnvironment webHostEnvironment, IReceitaService receitaService)
         {
             _service = service;
             _webHostEnvironment = webHostEnvironment;
@@ -31,13 +31,13 @@ namespace CmsConfeitaria.WebApi.Controllers
         }
 
         [HttpGet("Relatorio")]
-        public IActionResult Relatorio(int ReceitaId) 
+        public IActionResult Relatorio(int ReceitaId)
         {
-            var receita = _receitaService.BuscarPorId(ReceitaId);
-            
+            var receita = _receitaService.CarregarReceita(ReceitaId);
+
 
             RelatorioReceitaOutput receitaRelatorio = _service.ValorIngredientePorReceita(receita.Id);
- 
+
 
             var reportFile = Path.Combine(this._webHostEnvironment.ContentRootPath, @"Relatorio\Report.frx");
             var report = new FastReport.Report();

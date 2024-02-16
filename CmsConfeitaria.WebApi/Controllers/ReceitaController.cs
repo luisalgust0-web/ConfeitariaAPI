@@ -19,43 +19,31 @@ namespace CmsConfeitaria.WebApi.Controllers
             _receitaService = receitaService;
         }
 
-        [HttpPost("Adicionar")]
-        public IActionResult Adicionar([FromForm] ReceitaInput receitaInput)
+        [HttpPost("EnviarReceita")]
+        public IActionResult EnviarReceita([FromForm] ReceitaInput receitaInput)
         {
-            ReceitaOutput receita = _receitaService.Adicionar(receitaInput);
+            ReceitaOutput receita = _receitaService.EnviarReceita(receitaInput);
             return new JsonResult(receita);
         }
 
-        [HttpPost("Excluir")]
-        public IActionResult Excluir(ReceitaInput receitaInput)
+        [HttpDelete("ExcluirReceita/{id}")]
+        public IActionResult ExcluirReceita(int id)
         {
-            _receitaService.Excluir(receitaInput);
+            _receitaService.ExcluirReceita(id);
             return Ok();
         }
 
-        [HttpGet("BuscarLista")]
-        public IActionResult RetornarLista()
+        [HttpGet("CarregarListaReceitas")]
+        public IActionResult CarregarListaReceitas()
         {
-            List<ReceitaOutput> receitaLista = _receitaService.BuscarLista();
+            List<ReceitaOutput> receitaLista = _receitaService.CarregarListaReceitas();
             return new JsonResult(receitaLista);
         }
 
-        [HttpGet("RetornarReceitaId")]
-        public IActionResult RetornarReceitaPorId(int id)
+        [HttpGet("CarregarReceita/{id}")]
+        public IActionResult CarregarReceita(int id)
         {
-            ReceitaOutput receita = _receitaService.BuscarPorId(id);
-            return new JsonResult(receita);
-        }
-        [HttpGet("RetornarReceitaNome")]
-        public IActionResult RetornarReceitaPorNome(string nome)
-        {
-            ReceitaOutput receita = _receitaService.BuscarReceitaPorNome(nome);
-            return new JsonResult(receita);
-        }
-        [HttpGet("RetornarReceitasPorIngrediente")]
-        public IActionResult RetornarReceitasPorIngrediente(string Ingrediente)
-        {
-            List<ReceitaOutput> receita = _receitaService.BuscarReceitaPorIngredientes(Ingrediente);
+            ReceitaOutput receita = _receitaService.CarregarReceita(id);
             return new JsonResult(receita);
         }
     }

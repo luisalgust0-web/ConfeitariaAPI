@@ -16,7 +16,7 @@ namespace CmsConfeitaria.Business.AutoMapperProfile
         {
             CreateMap<Ingrediente, IngredienteOutput>(MemberList.None);
 
-            CreateMap<IngredienteInput, IngredienteOutput>(MemberList.None);
+            CreateMap<IngredienteInput, Ingrediente>(MemberList.None);
         }
     }
 }

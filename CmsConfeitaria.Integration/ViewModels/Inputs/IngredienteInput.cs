@@ -8,7 +8,7 @@ namespace CmsConfeitaria.Integration.ViewModels.Inputs
 {
     public class IngredienteInput
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Nome { get; set; }
         public DateTime DataCadastro { get; set; }
     }

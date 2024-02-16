@@ -31,7 +31,7 @@ namespace CmsConfeitaria.Business
 
         public RelatorioReceitaOutput ValorIngredientePorReceita(int receitaId)
         {
-            ReceitaOutput receitaOutput = _receitaService.BuscarPorId(receitaId);
+            ReceitaOutput receitaOutput = _receitaService.CarregarReceita(receitaId);
             Receita receita = _mapper.Map<Receita>(receitaOutput);
             RelatorioReceitaOutput relatorioReceitaOutput = new RelatorioReceitaOutput();
 
