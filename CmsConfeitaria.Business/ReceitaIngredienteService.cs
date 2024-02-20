@@ -18,13 +18,13 @@ namespace CmsConfeitaria.Business
         private readonly DBContextCm _context;
         private readonly IMapper _mapper;
 
-        public ReceitaIngredienteService(DBContextCm context,IMapper mapper)
+        public ReceitaIngredienteService(DBContextCm context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public bool Adicionar(ReceitaIngredienteInput receitaIngredienteInput)
+        public bool EnviarReceitaIngrediente(ReceitaIngredienteInput receitaIngredienteInput)
         {
             ReceitaIngrediente receitaIngrediente = _mapper.Map<ReceitaIngrediente>(receitaIngredienteInput);
             if (!_context.ReceitaIngrediente.Any(x => x.ReceitaId == receitaIngrediente.ReceitaId && x.IngredienteId == receitaIngrediente.IngredienteId))
@@ -46,27 +46,27 @@ namespace CmsConfeitaria.Business
                 throw new CmsException("Receita já contem esse ingrediente");
         }
 
-        public bool Excluir(ReceitaIngredienteInput ReceitaIngredienteInput)
+        public bool ExcluirReceitaIngrediente(int id)
         {
-            ReceitaIngrediente receitaIngrediente = _mapper.Map<ReceitaIngrediente>(ReceitaIngredienteInput);
-
+            ReceitaIngrediente receitaIngrediente = _context.ReceitaIngrediente.Find(id);
             _context.ReceitaIngrediente.Remove(receitaIngrediente);
             _context.SaveChanges();
             return true;
         }
 
-        public List<ReceitaIngredienteOutput> ObterLista()
+        public List<ReceitaIngredienteOutput> ObterReceitaIngredientes()
         {
             IEnumerable<ReceitaIngrediente> receitaIngredientes = _context.ReceitaIngrediente.Include(x => x.Receita).Include(x => x.UnidadeMedida).Include(x => x.ingrediente).AsEnumerable();
             List<ReceitaIngredienteOutput> receitaIngredienteOutputs = _mapper.Map<List<ReceitaIngredienteOutput>>(receitaIngredientes);
             return receitaIngredienteOutputs;
         }
 
-        public List<ReceitaIngredienteOutput> ObterReceitaIngredientePorReceita(int receitaId)
+        public List<ReceitaIngredienteOutput> ObterReceitaIngredientesPorReceita(int receitaId)
         {
             IEnumerable<ReceitaIngrediente> listaReceitaIngrediente = _context.ReceitaIngrediente.Where(x => x.ReceitaId == receitaId).Include(x => x.Receita).Include(x => x.UnidadeMedida).Include(x => x.ingrediente).AsEnumerable();
             List<ReceitaIngredienteOutput> listaReceitaIngredienteOutput = _mapper.Map<List<ReceitaIngredienteOutput>>(listaReceitaIngrediente);
             return listaReceitaIngredienteOutput;
         }
+
     }
 }

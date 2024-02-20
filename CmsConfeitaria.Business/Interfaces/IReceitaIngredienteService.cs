@@ -11,9 +11,9 @@ namespace CmsConfeitaria.Business.Interfaces
 {
     public interface IReceitaIngredienteService
     {
-        public bool Adicionar(ReceitaIngredienteInput receitaIngredienteInput);
-        List<ReceitaIngredienteOutput> ObterLista();
-        public bool Excluir(ReceitaIngredienteInput ReceitaIngredienteInput);
-        public List<ReceitaIngredienteOutput> ObterReceitaIngredientePorReceita(int receitaId);
+        public bool EnviarReceitaIngrediente(ReceitaIngredienteInput receitaIngredienteInput);
+        List<ReceitaIngredienteOutput> ObterReceitaIngredientes();
+        public bool ExcluirReceitaIngrediente(int id);
+        public List<ReceitaIngredienteOutput> ObterReceitaIngredientesPorReceita(int receitaId);
     }
 }

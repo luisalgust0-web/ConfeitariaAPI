@@ -11,10 +11,10 @@ namespace CmsConfeitaria.Integration.ViewModels.Inputs
 {
     public class ReceitaInput
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Nome { get; set; }
         public DateTime DataCadastro { get; set; }
         public string ModoPreparo { get; set; }
-        public IFormFile ImagemFile { get; set; }
+        public IFormFile? ImagemFile { get; set; }
     }
 }

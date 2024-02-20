@@ -16,28 +16,32 @@ namespace CmsConfeitaria.WebApi.Controllers
         {
             _receitaIngredienteService = receitaIngredienteService;
         }
-        [HttpPost("Adicionar")]
-        public IActionResult Adicionar(ReceitaIngredienteInput receitaIngredienteInput)
+
+        [HttpPost("EnviarReceitaIngrediente")]
+        public IActionResult EnviarReceitaIngrediente(ReceitaIngredienteInput receitaIngredienteInput)
         {
-            _receitaIngredienteService.Adicionar(receitaIngredienteInput);
+            _receitaIngredienteService.EnviarReceitaIngrediente(receitaIngredienteInput);
             return Ok();
         }
-        [HttpGet("ObterLista")]
-        public IActionResult ObterLista()
+
+        [HttpGet("CarregarListaReceitaIngredientes")]
+        public IActionResult CarregarListaReceitaIngredientes()
         {
-            List<ReceitaIngredienteOutput> receitaIngredienteInputs = _receitaIngredienteService.ObterLista();
+            List<ReceitaIngredienteOutput> receitaIngredienteInputs = _receitaIngredienteService.ObterReceitaIngredientes();
             return new JsonResult(receitaIngredienteInputs);
         }
-        [HttpGet("ObterListaPorReceita/{receitaId}")]
-        public IActionResult ObterListaPorReceita(int receitaId)
+
+        [HttpGet("CarregarListaReceitaIngredientesPorReceitaId/{receitaId}")]
+        public IActionResult CarregarListaReceitaIngredientesPorReceitaId(int receitaId)
         {
-            List<ReceitaIngredienteOutput> receitaIngredienteInputs = _receitaIngredienteService.ObterReceitaIngredientePorReceita(receitaId);
+            List<ReceitaIngredienteOutput> receitaIngredienteInputs = _receitaIngredienteService.ObterReceitaIngredientesPorReceita(receitaId);
             return new JsonResult(receitaIngredienteInputs);
         }
-        [HttpPost("RemoverReceitaIngrediente")]
-        public IActionResult Remover(ReceitaIngredienteInput receitaIngredienteInput)
+
+        [HttpDelete("RemoverReceitaIngrediente/{id}")]
+        public IActionResult RemoverReceitaIngrediente(int id)
         {
-            _receitaIngredienteService.Excluir(receitaIngredienteInput);
+            _receitaIngredienteService.ExcluirReceitaIngrediente(id);
             return Ok();
         }
     }

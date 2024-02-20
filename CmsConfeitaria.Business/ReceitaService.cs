@@ -51,11 +51,10 @@ namespace CmsConfeitaria.Business
         public ReceitaOutput EnviarReceita(ReceitaInput receitaInput)
         {
             Receita receita = _mapper.Map<Receita>(receitaInput);
-            ImagemReceita imagemReceita = _mapper.Map<ImagemReceita>(receitaInput.File);
-
-            if (!_dBContextCm.Receita.Any(x => x.Nome.ToLower() == receita.Nome.ToLower()))
+            //ImagemReceita imagemReceita = _mapper.Map<ImagemReceita>(receitaInput.ImagemFile);
+            if (receita.Id == 0)
             {
-                if (receita.Id == 0)
+                if (!_dBContextCm.Receita.Any(x => x.Nome.ToLower() == receita.Nome.ToLower()))
                 {
                     using (TransactionScope scope = new TransactionScope())
                     {
@@ -78,16 +77,16 @@ namespace CmsConfeitaria.Business
                 }
                 else
                 {
-                    _dBContextCm.Receita.Update(receita);
-                    _dBContextCm.SaveChanges();
-                    ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(receita);
-                    return receitaOutput;
+                    throw new CmsException("Receita já existente");
                 }
             }
             else
-                throw new CmsException("Receita já existente");
-
-
+            {
+                _dBContextCm.Receita.Update(receita);
+                _dBContextCm.SaveChanges();
+                ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(receita);
+                return receitaOutput;
+            }
         }
     }
 }

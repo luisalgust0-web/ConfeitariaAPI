@@ -38,24 +38,27 @@ namespace CmsConfeitaria.Business
             receitaOutput.Nome = receita.Nome;
             receitaOutput.ModoPreparo = receita.ModoPreparo;
 
-            foreach (var item in receita.ReceitaIngredientes)
+            if (receita.ReceitaIngredientes != null)
             {
-                var ingredienteOutput = new RelatorioIngredienteOutput();
-                ingredienteOutput.NomeIngrediente = item.ingrediente.Nome;
-                var ultimaCompra = item.ingrediente.Compras.OrderByDescending(x => x.Id).FirstOrDefault();
-                ingredienteOutput.QuantidadeTotal = ultimaCompra.Quantidade;
-                var valorPorUnidade = ultimaCompra.Valor / ultimaCompra.Quantidade;
-                ingredienteOutput.QuantidadeReceita = item.Quantidade;
-                var valorCalculado = valorPorUnidade * ingredienteOutput.QuantidadeReceita;
-                ingredienteOutput.ValorCalculo = valorCalculado;
-                relatorioReceitaOutput.ValorTotalReceita += valorCalculado;
+                foreach (var item in receita.ReceitaIngredientes)
+                {
+                    var ingredienteOutput = new RelatorioIngredienteOutput();
+                    ingredienteOutput.NomeIngrediente = item.ingrediente.Nome;
+                    var ultimaCompra = item.ingrediente.Compras.OrderByDescending(x => x.Id).FirstOrDefault();
+                    ingredienteOutput.QuantidadeTotal = ultimaCompra.Quantidade;
+                    var valorPorUnidade = ultimaCompra.Valor / ultimaCompra.Quantidade;
+                    ingredienteOutput.QuantidadeReceita = item.Quantidade;
+                    var valorCalculado = valorPorUnidade * ingredienteOutput.QuantidadeReceita;
+                    ingredienteOutput.ValorCalculo = valorCalculado;
+                    relatorioReceitaOutput.ValorTotalReceita += valorCalculado;
 
-                relatorioReceitaOutput.IngredienteOutputs.Add(ingredienteOutput);
+                    relatorioReceitaOutput.IngredienteOutputs.Add(ingredienteOutput);
+                }
+
+                return relatorioReceitaOutput;
             }
-
-            return relatorioReceitaOutput;
-
-
+            else
+                throw new CmsException("essa receita ainda não possui ingredientes cadastrados");
         }
     }
 }
