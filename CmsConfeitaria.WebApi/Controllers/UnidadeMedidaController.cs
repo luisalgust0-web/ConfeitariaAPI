@@ -16,23 +16,33 @@ namespace CmsConfeitaria.WebApi.Controllers
         {
             _unidadeMedidaService = unidadeMedidaService;
         }
-        [HttpGet("BuscarListaUnidadeMedida")]
-        public IActionResult BusacarLista()
+
+        [HttpGet("CarregarListaUnidadeMedida")]
+        public IActionResult CarregarListaUnidadeMedida()
         {
-            List<UnidadeMedidaOutput> ListaUnidadeMediadaInput = _unidadeMedidaService.BuscarLista();
+            List<UnidadeMedidaOutput> ListaUnidadeMediadaInput = _unidadeMedidaService.ObterUnidadeMedidas();
             return new JsonResult(ListaUnidadeMediadaInput);
         }
-        [HttpPost("AdicionarUnidadeMedida")]
+
+        [HttpGet("CarregarUnidadeMedida/{id}")]
+        public IActionResult CarregarUnidadeMedida(int id)
+        {
+            UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaService.ObterUnidadeMedida(id);
+            return new JsonResult(unidadeMedidaOutput);
+        }
+
+        [HttpPost("EnviarUnidadeMedida")]
         public IActionResult Adicionar(UnidadeMedidaInput unidademedidaInput)
         {
-            _unidadeMedidaService.Adicionar(unidademedidaInput);
-            return Ok();
+            UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaService.EnviarUnidadeMedida(unidademedidaInput);
+            return new JsonResult(unidadeMedidaOutput);
 
         }
-        [HttpPost("RemoverUnidadeMedida")]
-        public IActionResult Remover(UnidadeMedidaInput unidademedidaInput)
+
+        [HttpDelete("RemoverUnidadeMedida/{id}")]
+        public IActionResult Remover(int id)
         {
-            _unidadeMedidaService.Excluir(unidademedidaInput);
+            _unidadeMedidaService.ExcluirUnidadeMedida(id);
             return Ok();
         }
     }

@@ -11,8 +11,9 @@ namespace CmsConfeitaria.Business.Interfaces
 {
     public interface IUnidadeMedidaService
     {
-        public List<UnidadeMedidaOutput> BuscarLista();
-        public bool Adicionar(UnidadeMedidaInput unidademedidaInput);
-        public bool Excluir(UnidadeMedidaInput unidademedidaInput);
+        public List<UnidadeMedidaOutput> ObterUnidadeMedidas();
+        public UnidadeMedidaOutput ObterUnidadeMedida(int id);
+        public UnidadeMedidaOutput EnviarUnidadeMedida(UnidadeMedidaInput unidademedidaInput);
+        public bool ExcluirUnidadeMedida(int id);
     }
 }

@@ -22,38 +22,48 @@ namespace CmsConfeitaria.Business
             _mapper = mapper;
             _context = context;
         }
-        public List<UnidadeMedidaOutput> BuscarLista()
+        public List<UnidadeMedidaOutput> ObterUnidadeMedidas()
         {
             IEnumerable<UnidadeMedida> ListaUnidadeMedidas = _context.UnidadeMedida.AsEnumerable();
             List<UnidadeMedidaOutput> ListaUnidadeMedidasOutput = _mapper.Map<List<UnidadeMedidaOutput>>(ListaUnidadeMedidas);
             return ListaUnidadeMedidasOutput;
         }
-        public bool Adicionar(UnidadeMedidaInput unidademedidaInput)
+
+        public UnidadeMedidaOutput ObterUnidadeMedida(int id)
+        {
+            UnidadeMedida unidadeMedida = _context.UnidadeMedida.Find(id);
+            UnidadeMedidaOutput unidadeMedidaOutput = _mapper.Map<UnidadeMedidaOutput>(unidadeMedida);
+            return unidadeMedidaOutput;
+        }
+
+        public UnidadeMedidaOutput EnviarUnidadeMedida(UnidadeMedidaInput unidademedidaInput)
         {
             UnidadeMedida unidadeMedida = _mapper.Map<UnidadeMedida>(unidademedidaInput);
 
-            if (!_context.UnidadeMedida.Any(x => x.Nome == unidadeMedida.Nome || x.Sigla == unidadeMedida.Sigla))
+            if (unidadeMedida.Id == 0)
             {
-                if (unidadeMedida.Id == 0)
+                if (!_context.UnidadeMedida.Any(x => x.Nome == unidadeMedida.Nome || x.Sigla == unidadeMedida.Sigla))
                 {
                     _context.UnidadeMedida.Add(unidadeMedida);
                     _context.SaveChanges();
-                    return true;
+                    UnidadeMedidaOutput unidadeMedidaOutput = _mapper.Map<UnidadeMedidaOutput>(unidadeMedida);
+                    return unidadeMedidaOutput;
                 }
                 else
-                {
-                    _context.UnidadeMedida.Update(unidadeMedida);
-                    _context.SaveChanges();
-                    return true;
-                }
+                    throw new CmsException("nome ou sigla já existente");
             }
             else
-                throw new CmsException("nome ou sigla já existente");
+            {
+                _context.UnidadeMedida.Update(unidadeMedida);
+                _context.SaveChanges();
+                UnidadeMedidaOutput unidadeMedidaOutput = _mapper.Map<UnidadeMedidaOutput>(unidadeMedida);
+                return unidadeMedidaOutput;
+            }
         }
 
-        public bool Excluir(UnidadeMedidaInput unidademedidaInput)
+        public bool ExcluirUnidadeMedida(int id)
         {
-            UnidadeMedida unidadeMedida = _mapper.Map<UnidadeMedida>(unidademedidaInput);
+            UnidadeMedida unidadeMedida = _context.UnidadeMedida.Find(id);
             _context.UnidadeMedida.Remove(unidadeMedida);
             _context.SaveChanges();
             return true;

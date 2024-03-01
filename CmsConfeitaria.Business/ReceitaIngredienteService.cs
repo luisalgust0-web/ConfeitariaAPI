@@ -27,23 +27,23 @@ namespace CmsConfeitaria.Business
         public bool EnviarReceitaIngrediente(ReceitaIngredienteInput receitaIngredienteInput)
         {
             ReceitaIngrediente receitaIngrediente = _mapper.Map<ReceitaIngrediente>(receitaIngredienteInput);
-            if (!_context.ReceitaIngrediente.Any(x => x.ReceitaId == receitaIngrediente.ReceitaId && x.IngredienteId == receitaIngrediente.IngredienteId))
+            if (receitaIngrediente.Id == 0)
             {
-                if (receitaIngrediente.Id == 0)
+                if (!_context.ReceitaIngrediente.Any(x => x.ReceitaId == receitaIngrediente.ReceitaId && x.IngredienteId == receitaIngrediente.IngredienteId))
                 {
                     _context.ReceitaIngrediente.Add(receitaIngrediente);
                     _context.SaveChanges();
                     return true;
                 }
                 else
-                {
-                    _context.ReceitaIngrediente.Update(receitaIngrediente);
-                    _context.SaveChanges();
-                    return true;
-                }
+                    throw new CmsException("Receita já contem esse ingrediente");
             }
             else
-                throw new CmsException("Receita já contem esse ingrediente");
+            {
+                _context.ReceitaIngrediente.Update(receitaIngrediente);
+                _context.SaveChanges();
+                return true;
+            }
         }
 
         public bool ExcluirReceitaIngrediente(int id)
@@ -68,5 +68,11 @@ namespace CmsConfeitaria.Business
             return listaReceitaIngredienteOutput;
         }
 
+        public ReceitaIngredienteOutput ObterReceitaIngrediente(int id)
+        {
+            ReceitaIngrediente receitaIngrediente = _context.ReceitaIngrediente.Find(id);
+            ReceitaIngredienteOutput receitaIngredienteOutput = _mapper.Map<ReceitaIngredienteOutput>(receitaIngrediente);
+            return receitaIngredienteOutput;
+        }
     }
 }

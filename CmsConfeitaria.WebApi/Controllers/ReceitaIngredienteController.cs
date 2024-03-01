@@ -38,6 +38,13 @@ namespace CmsConfeitaria.WebApi.Controllers
             return new JsonResult(receitaIngredienteInputs);
         }
 
+        [HttpGet("CarregarReceitaIngrediente/{id}")]
+        public IActionResult CarregarReceitaIngrediente(int id)
+        {
+            ReceitaIngredienteOutput receitaIngredienteInputs = _receitaIngredienteService.ObterReceitaIngrediente(id);
+            return new JsonResult(receitaIngredienteInputs);
+        }
+
         [HttpDelete("RemoverReceitaIngrediente/{id}")]
         public IActionResult RemoverReceitaIngrediente(int id)
         {

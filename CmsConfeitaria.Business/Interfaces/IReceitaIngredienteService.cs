@@ -13,6 +13,7 @@ namespace CmsConfeitaria.Business.Interfaces
     {
         public bool EnviarReceitaIngrediente(ReceitaIngredienteInput receitaIngredienteInput);
         List<ReceitaIngredienteOutput> ObterReceitaIngredientes();
+        ReceitaIngredienteOutput ObterReceitaIngrediente(int id);
         public bool ExcluirReceitaIngrediente(int id);
         public List<ReceitaIngredienteOutput> ObterReceitaIngredientesPorReceita(int receitaId);
     }
