@@ -17,14 +17,14 @@ namespace CmsConfeitaria.WebApi.Controllers
             _unidadeMedidaRepository = unidadeMedidaRepository;
         }
 
-        [HttpGet("CarregarListaUnidadeMedida")]
+        [HttpGet("ObterListaUnidadeMedidas")]
         public IActionResult CarregarListaUnidadeMedida()
         {
             List<UnidadeMedidaOutput> ListaUnidadeMediadaInput = _unidadeMedidaRepository.ObterListaUnidadeMedidas();
             return new JsonResult(ListaUnidadeMediadaInput);
         }
 
-        [HttpGet("CarregarUnidadeMedida/{id}")]
+        [HttpGet("ObterUnidadeMedida/{id}")]
         public IActionResult CarregarUnidadeMedida(int id)
         {
             UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaRepository.ObterUnidadeMedida(id);

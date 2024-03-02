@@ -14,7 +14,7 @@ namespace CmsConfeitaria.Business.Repositories.Interfaces
         public CompraOutput ObterCompra(int id);
         public CompraOutput AdicionarCompra(CompraInput compraInput);
         public CompraOutput EditarCompra(CompraInput compraInput);
-        public bool ExcluirCompra(CompraInput compraInput);
+        public bool ExcluirCompra(int id);
         public List<CompraOutput> ObterListaCompras();
     }
 }

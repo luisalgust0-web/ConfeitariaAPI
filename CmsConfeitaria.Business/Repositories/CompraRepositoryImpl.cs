@@ -43,9 +43,9 @@ namespace CmsConfeitaria.Business.Repositories
             return compraOutput;
         }
 
-        public bool ExcluirCompra(CompraInput compraInput)
+        public bool ExcluirCompra(int id)
         {
-            Compra compra = _mapper.Map<Compra>(compraInput);
+            Compra compra = _context.Compra.Find(id);
             _context.Compra.Remove(compra);
             _context.SaveChanges();
             return true;

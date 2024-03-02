@@ -45,7 +45,7 @@ namespace CmsConfeitaria.WebApi.Controllers
             return new JsonResult(receitaIngredienteInputs);
         }
 
-        [HttpGet("CarregarReceitaIngrediente/{id}")]
+        [HttpGet("ObterReceitaIngrediente/{id}")]
         public IActionResult CarregarReceitaIngrediente(int id)
         {
             ReceitaIngredienteOutput receitaIngredienteInputs = _receitaIngredienteRepository.ObterReceitaIngrediente(id);

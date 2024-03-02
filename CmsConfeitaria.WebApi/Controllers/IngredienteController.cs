@@ -18,14 +18,14 @@ namespace CmsConfeitaria.WebApi.Controllers
         }
 
         //[Authorize()]
-        [HttpGet("CarregarListaIngredientes")]
+        [HttpGet("ObterListaIngredientes")]
         public IActionResult CarregarListaIngredientes()
         {
             List<IngredienteOutput> ListaIngredienteOutput = _ingredienteRepository.ObterListaIngredientes();
             return new JsonResult(ListaIngredienteOutput);
         }
 
-        [HttpGet("CarregarIngrediente/{id}")]
+        [HttpGet("ObterIngrediente/{id}")]
         public IActionResult CarregarIngrediente(int id)
         {
             IngredienteOutput ingredienteOutput = _ingredienteRepository.ObterIngrediente(id);

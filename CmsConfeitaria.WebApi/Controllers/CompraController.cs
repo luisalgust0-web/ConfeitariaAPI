@@ -43,10 +43,10 @@ namespace CmsConfeitaria.WebApi.Controllers
             return new JsonResult(_compraRepository.EditarCompra(compraInput));
         }
 
-        [HttpPost("RemoverCompra")]
-        public IActionResult Remover(CompraInput compraInput)
+        [HttpDelete("RemoverCompra/{id}")]
+        public IActionResult Remover(int id)
         {
-            _compraRepository.ExcluirCompra(compraInput);
+            _compraRepository.ExcluirCompra(id);
             return Ok();
         }
     }
