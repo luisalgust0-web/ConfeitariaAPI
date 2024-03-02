@@ -1,4 +1,4 @@
-﻿using CmsConfeitaria.Business.Interfaces;
+﻿using CmsConfeitaria.Business.Repositories.Interfaces;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,18 +9,17 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioService _service;
+        private readonly UsuarioRepository _usuarioRepository;
 
-        public UsuarioController(IUsuarioService service)
+        public UsuarioController(UsuarioRepository usuarioRepository)
         {
-            _service = service;
+            _usuarioRepository = usuarioRepository;
         }
 
         [HttpPost("AdicionarUsuario")]
         public IActionResult Adicionar(UsuarioInput usuario)
         {
-            _service.Adicionar(usuario);
-            return Ok();
+            return new JsonResult(_usuarioRepository.AdicionarUsuario(usuario));
         }
 
     }

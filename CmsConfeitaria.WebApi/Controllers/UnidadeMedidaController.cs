@@ -1,4 +1,4 @@
-﻿using CmsConfeitaria.Business.Interfaces;
+﻿using CmsConfeitaria.Business.Repositories.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
@@ -11,30 +11,38 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class UnidadeMedidaController : ControllerBase
     {
-        private readonly IUnidadeMedidaService _unidadeMedidaService;
-        public UnidadeMedidaController(IUnidadeMedidaService unidadeMedidaService)
+        private readonly UnidadeMedidaRepository _unidadeMedidaRepository;
+        public UnidadeMedidaController(UnidadeMedidaRepository unidadeMedidaRepository)
         {
-            _unidadeMedidaService = unidadeMedidaService;
+            _unidadeMedidaRepository = unidadeMedidaRepository;
         }
 
         [HttpGet("CarregarListaUnidadeMedida")]
         public IActionResult CarregarListaUnidadeMedida()
         {
-            List<UnidadeMedidaOutput> ListaUnidadeMediadaInput = _unidadeMedidaService.ObterUnidadeMedidas();
+            List<UnidadeMedidaOutput> ListaUnidadeMediadaInput = _unidadeMedidaRepository.ObterListaUnidadeMedidas();
             return new JsonResult(ListaUnidadeMediadaInput);
         }
 
         [HttpGet("CarregarUnidadeMedida/{id}")]
         public IActionResult CarregarUnidadeMedida(int id)
         {
-            UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaService.ObterUnidadeMedida(id);
+            UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaRepository.ObterUnidadeMedida(id);
             return new JsonResult(unidadeMedidaOutput);
         }
 
-        [HttpPost("EnviarUnidadeMedida")]
-        public IActionResult Adicionar(UnidadeMedidaInput unidademedidaInput)
+        [HttpPost("AdicionarUnidadeMedida")]
+        public IActionResult AdicionarUnidadeMedida(UnidadeMedidaInput unidademedidaInput)
         {
-            UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaService.EnviarUnidadeMedida(unidademedidaInput);
+            UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaRepository.AdicionarUnidadeMedida(unidademedidaInput);
+            return new JsonResult(unidadeMedidaOutput);
+
+        }
+
+        [HttpPost("EditarUnidadeMedida")]
+        public IActionResult EditarUnidadeMedida(UnidadeMedidaInput unidademedidaInput)
+        {
+            UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaRepository.EditarUnidadeMedida(unidademedidaInput);
             return new JsonResult(unidadeMedidaOutput);
 
         }
@@ -42,7 +50,7 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpDelete("RemoverUnidadeMedida/{id}")]
         public IActionResult Remover(int id)
         {
-            _unidadeMedidaService.ExcluirUnidadeMedida(id);
+            _unidadeMedidaRepository.ExcluirUnidadeMedida(id);
             return Ok();
         }
     }

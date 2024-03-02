@@ -1,5 +1,5 @@
 ﻿using CmsConfeitaria.Business;
-using CmsConfeitaria.Business.Interfaces;
+using CmsConfeitaria.Business.Repositories.Interfaces;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Mvc;
@@ -10,29 +10,43 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class CompraController : ControllerBase
     {
-        private readonly ICompraService _service;
+        private readonly CompraRepository _compraRepository;
 
-        public CompraController(ICompraService service)
+        public CompraController(CompraRepository compraRepository)
         {
-            _service = service;
+            _compraRepository = compraRepository;
         }
 
-        [HttpGet("ListaComrpa")]
-        public IActionResult GetLista()
+        [HttpGet("ObterListaCompras")]
+        public IActionResult ObterListaCompras()
         {
-            List<CompraOutput> listaCompra = _service.GetLista();
-            return new JsonResult(listaCompra);
+            List<CompraOutput> listaCompraOutput = _compraRepository.ObterListaCompras();
+            return new JsonResult(listaCompraOutput);
         }
+
+        [HttpGet("ObterCompra/{id}")]
+        public IActionResult ObterCompra(int id)
+        {
+            CompraOutput compraOutput = _compraRepository.ObterCompra(id);
+            return new JsonResult(compraOutput);
+        }
+
         [HttpPost("AdicionarCompra")]
-        public IActionResult Adicionar(CompraInput compraInput)
+        public IActionResult AdicionarCompra(CompraInput compraInput)
         {
-            _service.Adicionar(compraInput);
-            return Ok();
+            return new JsonResult(_compraRepository.AdicionarCompra(compraInput));
         }
+
+        [HttpPost("EditarCompra")]
+        public IActionResult EditarCompra(CompraInput compraInput)
+        {
+            return new JsonResult(_compraRepository.EditarCompra(compraInput));
+        }
+
         [HttpPost("RemoverCompra")]
         public IActionResult Remover(CompraInput compraInput)
         {
-            _service.Excluir(compraInput);
+            _compraRepository.ExcluirCompra(compraInput);
             return Ok();
         }
     }

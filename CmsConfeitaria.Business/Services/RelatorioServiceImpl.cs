@@ -1,27 +1,21 @@
 ﻿using AutoMapper;
-using CmsConfeitaria.Business.Interfaces;
+using CmsConfeitaria.Business.Repositories.Interfaces;
+using CmsConfeitaria.Business.Services.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
-namespace CmsConfeitaria.Business
+namespace CmsConfeitaria.Business.Services
 {
-    public class RelatorioService : IRelatorioService
+    public class RelatorioServiceImpl : RelatorioService
     {
         private readonly DBContextCm _context;
-        private readonly IReceitaService _receitaService;
-        private readonly ICompraService _compraService;
+        private readonly ReceitaRespository _receitaService;
+        private readonly CompraRepository _compraService;
         private readonly IMapper _mapper;
 
-        public RelatorioService(DBContextCm context, IReceitaService receitaService, ICompraService compraService, IMapper mapper)
+        public RelatorioServiceImpl(DBContextCm context, ReceitaRespository receitaService, CompraRepository compraService, IMapper mapper)
         {
             _context = context;
             _receitaService = receitaService;
@@ -31,7 +25,7 @@ namespace CmsConfeitaria.Business
 
         public RelatorioReceitaOutput ValorIngredientePorReceita(int receitaId)
         {
-            ReceitaOutput receitaOutput = _receitaService.CarregarReceita(receitaId);
+            ReceitaOutput receitaOutput = _receitaService.ObterReceita(receitaId);
             Receita receita = _mapper.Map<Receita>(receitaOutput);
             RelatorioReceitaOutput relatorioReceitaOutput = new RelatorioReceitaOutput();
 

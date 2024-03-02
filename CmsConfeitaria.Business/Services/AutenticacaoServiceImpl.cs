@@ -1,4 +1,4 @@
-﻿using CmsConfeitaria.Business.Interfaces;
+﻿using CmsConfeitaria.Business.Services.Interfaces;
 using CmsConfeitaria.Integration;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
@@ -10,12 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Business
+namespace CmsConfeitaria.Business.Services
 {
-    public class AutenticacaoService : IAutenticacaoServie
+    public class AutenticacaoServiceImpl : AutenticacaoService
     {
         private readonly DBContextCm _context;
-        public AutenticacaoService(DBContextCm context)
+        public AutenticacaoServiceImpl(DBContextCm context)
         {
             _context = context;
         }

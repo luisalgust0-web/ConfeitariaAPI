@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Business.Interfaces
+namespace CmsConfeitaria.Business.Repositories.Interfaces
 {
-    public interface IUnidadeMedidaService
+    public interface UnidadeMedidaRepository
     {
-        public List<UnidadeMedidaOutput> ObterUnidadeMedidas();
+        public List<UnidadeMedidaOutput> ObterListaUnidadeMedidas();
         public UnidadeMedidaOutput ObterUnidadeMedida(int id);
-        public UnidadeMedidaOutput EnviarUnidadeMedida(UnidadeMedidaInput unidademedidaInput);
+        public UnidadeMedidaOutput AdicionarUnidadeMedida(UnidadeMedidaInput unidademedidaInput);
+        public UnidadeMedidaOutput EditarUnidadeMedida(UnidadeMedidaInput unidademedidaInput);
         public bool ExcluirUnidadeMedida(int id);
     }
 }

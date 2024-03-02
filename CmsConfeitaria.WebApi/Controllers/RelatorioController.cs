@@ -1,10 +1,7 @@
-﻿using CmsConfeitaria.Business;
-using CmsConfeitaria.Business.Interfaces;
+﻿using CmsConfeitaria.Business.Repositories.Interfaces;
+using CmsConfeitaria.Business.Services.Interfaces;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
-using CmsConfeitaria.Integration.ViewModels.Outputs;
-using FastReport;
 using FastReport.Export.PdfSimple;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CmsConfeitaria.WebApi.Controllers
@@ -13,14 +10,14 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class RelatorioController : ControllerBase
     {
-        private readonly IRelatorioService _service;
+        private readonly RelatorioService _service;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IReceitaService _receitaService;
-        public RelatorioController(IRelatorioService service, IWebHostEnvironment webHostEnvironment, IReceitaService receitaService)
+        private readonly ReceitaRespository _receitaRepository;
+        public RelatorioController(RelatorioService service, IWebHostEnvironment webHostEnvironment, ReceitaRespository receitaRepository)
         {
             _service = service;
             _webHostEnvironment = webHostEnvironment;
-            _receitaService = receitaService;
+            _receitaRepository = receitaRepository;
         }
 
         [HttpPost("ValorIngredientePorReceita")]
@@ -33,7 +30,7 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("Relatorio")]
         public IActionResult Relatorio(int ReceitaId)
         {
-            var receita = _receitaService.CarregarReceita(ReceitaId);
+            var receita = _receitaRepository.ObterReceita(ReceitaId);
 
 
             RelatorioReceitaOutput receitaRelatorio = _service.ValorIngredientePorReceita(receita.Id);

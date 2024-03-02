@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Business.Interfaces
+namespace CmsConfeitaria.Business.Repositories.Interfaces
 {
-    public interface IIngredienteService
+    public interface IngredienteRepository
     {
-        public List<IngredienteOutput> CarregarListaIngredientes();
+        public List<IngredienteOutput> ObterListaIngredientes();
         public IngredienteOutput ObterIngrediente(int id);
-        public IngredienteOutput EnviarIngrediente(IngredienteInput ingredienteInput);
+        public IngredienteOutput AdicionarIngrediente(IngredienteInput ingredienteInput);
+        public IngredienteOutput EditarIngrediente(IngredienteInput ingredienteInput);
         public bool ExcluirIngrediente(int id);
     }
 }

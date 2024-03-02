@@ -1,5 +1,5 @@
 ﻿using CmsConfeitaria.Business;
-using CmsConfeitaria.Business.Interfaces;
+using CmsConfeitaria.Business.Repositories.Interfaces;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Http;
@@ -11,44 +11,51 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class ReceitaIngredienteController : ControllerBase
     {
-        private readonly IReceitaIngredienteService _receitaIngredienteService;
-        public ReceitaIngredienteController(IReceitaIngredienteService receitaIngredienteService)
+        private readonly ReceitaIngredienteRepository _receitaIngredienteRepository;
+        public ReceitaIngredienteController(ReceitaIngredienteRepository receitaIngredienteRepository)
         {
-            _receitaIngredienteService = receitaIngredienteService;
+            _receitaIngredienteRepository = receitaIngredienteRepository;
         }
 
-        [HttpPost("EnviarReceitaIngrediente")]
-        public IActionResult EnviarReceitaIngrediente(ReceitaIngredienteInput receitaIngredienteInput)
+        [HttpPost("AdicionarReceitaIngrediente")]
+        public IActionResult AdicionarReceitaIngrediente(ReceitaIngredienteInput receitaIngredienteInput)
         {
-            _receitaIngredienteService.EnviarReceitaIngrediente(receitaIngredienteInput);
-            return Ok();
+            ReceitaIngredienteOutput receitaIngredienteOutput = _receitaIngredienteRepository.AdicionarReceitaIngrediente(receitaIngredienteInput);
+            return new JsonResult(receitaIngredienteOutput);
         }
 
-        [HttpGet("CarregarListaReceitaIngredientes")]
-        public IActionResult CarregarListaReceitaIngredientes()
+        [HttpPost("EditarReceitaIngrediente")]
+        public IActionResult EditarReceitaIngrediente(ReceitaIngredienteInput receitaIngredienteInput)
         {
-            List<ReceitaIngredienteOutput> receitaIngredienteInputs = _receitaIngredienteService.ObterReceitaIngredientes();
+            ReceitaIngredienteOutput receitaIngredienteOutput = _receitaIngredienteRepository.EditarReceitaIngrediente(receitaIngredienteInput);
+            return new JsonResult(receitaIngredienteOutput);
+        }
+
+        [HttpGet("ObterListaReceitaIngredientes")]
+        public IActionResult ObterListaReceitaIngredientes()
+        {
+            List<ReceitaIngredienteOutput> receitaIngredienteInputs = _receitaIngredienteRepository.ObterListaReceitaIngredientes();
             return new JsonResult(receitaIngredienteInputs);
         }
 
-        [HttpGet("CarregarListaReceitaIngredientesPorReceitaId/{receitaId}")]
-        public IActionResult CarregarListaReceitaIngredientesPorReceitaId(int receitaId)
+        [HttpGet("ObterListaReceitaIngredientesPorReceita/{receitaId}")]
+        public IActionResult ObterListaReceitaIngredientesPorReceita(int receitaId)
         {
-            List<ReceitaIngredienteOutput> receitaIngredienteInputs = _receitaIngredienteService.ObterReceitaIngredientesPorReceita(receitaId);
+            List<ReceitaIngredienteOutput> receitaIngredienteInputs = _receitaIngredienteRepository.ObterListaReceitaIngredientesPorReceita(receitaId);
             return new JsonResult(receitaIngredienteInputs);
         }
 
         [HttpGet("CarregarReceitaIngrediente/{id}")]
         public IActionResult CarregarReceitaIngrediente(int id)
         {
-            ReceitaIngredienteOutput receitaIngredienteInputs = _receitaIngredienteService.ObterReceitaIngrediente(id);
+            ReceitaIngredienteOutput receitaIngredienteInputs = _receitaIngredienteRepository.ObterReceitaIngrediente(id);
             return new JsonResult(receitaIngredienteInputs);
         }
 
         [HttpDelete("RemoverReceitaIngrediente/{id}")]
         public IActionResult RemoverReceitaIngrediente(int id)
         {
-            _receitaIngredienteService.ExcluirReceitaIngrediente(id);
+            _receitaIngredienteRepository.ExcluirReceitaIngrediente(id);
             return Ok();
         }
     }

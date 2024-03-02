@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Business.Interfaces
+namespace CmsConfeitaria.Business.Services.Interfaces
 {
-    public interface IRelatorioService
+    public interface RelatorioService
     {
         public RelatorioReceitaOutput ValorIngredientePorReceita(int ReceitaId);
     }
