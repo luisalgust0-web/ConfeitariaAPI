@@ -33,7 +33,7 @@ namespace CmsConfeitaria.WebApi.Controllers
             return new JsonResult(receita);
         }
 
-        [HttpDelete("ExcluirReceita/{id}")]
+        [HttpDelete("RemoverReceita/{id}")]
         public IActionResult ExcluirReceita(int id)
         {
             _receitaRepository.ExcluirReceita(id);

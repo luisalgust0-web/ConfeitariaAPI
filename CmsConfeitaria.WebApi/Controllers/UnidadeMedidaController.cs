@@ -18,14 +18,14 @@ namespace CmsConfeitaria.WebApi.Controllers
         }
 
         [HttpGet("ObterListaUnidadeMedidas")]
-        public IActionResult CarregarListaUnidadeMedida()
+        public IActionResult ObterListaUnidadeMedidas()
         {
             List<UnidadeMedidaOutput> ListaUnidadeMediadaInput = _unidadeMedidaRepository.ObterListaUnidadeMedidas();
             return new JsonResult(ListaUnidadeMediadaInput);
         }
 
         [HttpGet("ObterUnidadeMedida/{id}")]
-        public IActionResult CarregarUnidadeMedida(int id)
+        public IActionResult ObterUnidadeMedida(int id)
         {
             UnidadeMedidaOutput unidadeMedidaOutput = _unidadeMedidaRepository.ObterUnidadeMedida(id);
             return new JsonResult(unidadeMedidaOutput);
@@ -48,7 +48,7 @@ namespace CmsConfeitaria.WebApi.Controllers
         }
 
         [HttpDelete("RemoverUnidadeMedida/{id}")]
-        public IActionResult Remover(int id)
+        public IActionResult ExcluirUnidadeMedida(int id)
         {
             _unidadeMedidaRepository.ExcluirUnidadeMedida(id);
             return Ok();

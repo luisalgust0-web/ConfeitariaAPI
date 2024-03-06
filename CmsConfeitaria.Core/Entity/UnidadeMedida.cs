@@ -15,7 +15,7 @@ namespace CmsConfeitaria.Core.Entity
         public string Sigla { get; set; }
         public DateTime DataCadastro { get; set; }
 
-        public List<Compra> Compras { get; set; }
+        public List<CompraIngrediente> Compras { get; set; }
         public List<ReceitaIngrediente> ReceitaIngredientes { get; set; }
     }
 }

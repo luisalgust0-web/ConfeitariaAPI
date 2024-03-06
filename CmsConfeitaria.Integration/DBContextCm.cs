@@ -38,7 +38,7 @@ namespace CmsConfeitaria.Integration
         public DbSet<ReceitaIngrediente> ReceitaIngrediente { get; set; }
         public DbSet<Ingrediente> Ingrediente { get; set; }
         public DbSet<Receita> Receita { get; set; }
-        public DbSet<Compra> Compra { get; set; }
+        public DbSet<CompraIngrediente> Compra { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new TesteConfiguration());

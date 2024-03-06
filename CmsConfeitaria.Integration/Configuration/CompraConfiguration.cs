@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Integration.Configuration
 {
-    public class CompraConfiguration : IEntityTypeConfiguration<Compra>
+    public class CompraConfiguration : IEntityTypeConfiguration<CompraIngrediente>
     {
-        public void Configure(EntityTypeBuilder<Compra> builder)
+        public void Configure(EntityTypeBuilder<CompraIngrediente> builder)
         {
             builder.ToTable("Compra");
             builder.HasKey(e => e.Id);
             builder.Property(s => s.Id).HasColumnName("Id");
             builder.Property(s => s.Quantidade).HasColumnName("Quantidade");
-            builder.Property(s => s.DataCompra).HasColumnName("DataCompra");
+            builder.Property(s => s.DataCadastro).HasColumnName("DataCadastro");
             builder.Property(s => s.Valor).HasColumnName("Valor");
 
             builder.HasOne(s => s.Ingrediente).WithMany(s => s.Compras).HasForeignKey(s => s.IngredienteId);

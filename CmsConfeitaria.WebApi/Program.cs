@@ -19,7 +19,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<ReceitaProfile>();
     cfg.AddProfile<IngredienteProfile>();
     cfg.AddProfile<UnidadeMedidaProfile>();
-    cfg.AddProfile<ComrpaProfile>();
+    cfg.AddProfile<ComrpaIngredienteProfile>();
     cfg.AddProfile<UsuarioProfile>();
 });
 

@@ -8,42 +8,42 @@ namespace CmsConfeitaria.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CompraController : ControllerBase
+    public class CompraIngredienteController : ControllerBase
     {
         private readonly CompraRepository _compraRepository;
 
-        public CompraController(CompraRepository compraRepository)
+        public CompraIngredienteController(CompraRepository compraRepository)
         {
             _compraRepository = compraRepository;
         }
 
-        [HttpGet("ObterListaCompras")]
+        [HttpGet("ObterListaCompraIngredientes")]
         public IActionResult ObterListaCompras()
         {
             List<CompraOutput> listaCompraOutput = _compraRepository.ObterListaCompras();
             return new JsonResult(listaCompraOutput);
         }
 
-        [HttpGet("ObterCompra/{id}")]
+        [HttpGet("ObterCompraIngrediente/{id}")]
         public IActionResult ObterCompra(int id)
         {
             CompraOutput compraOutput = _compraRepository.ObterCompra(id);
             return new JsonResult(compraOutput);
         }
 
-        [HttpPost("AdicionarCompra")]
+        [HttpPost("AdicionarCompraIngrediente")]
         public IActionResult AdicionarCompra(CompraInput compraInput)
         {
             return new JsonResult(_compraRepository.AdicionarCompra(compraInput));
         }
 
-        [HttpPost("EditarCompra")]
+        [HttpPost("EditarCompraIngrediente")]
         public IActionResult EditarCompra(CompraInput compraInput)
         {
             return new JsonResult(_compraRepository.EditarCompra(compraInput));
         }
 
-        [HttpDelete("RemoverCompra/{id}")]
+        [HttpDelete("RemoverCompraIngrediente/{id}")]
         public IActionResult Remover(int id)
         {
             _compraRepository.ExcluirCompra(id);

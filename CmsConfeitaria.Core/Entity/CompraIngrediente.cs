@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Core.Entity
 {
-    public class Compra
+    public class CompraIngrediente
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int IngredienteId { get; set; }
         public int UnidadeMedidaId { get; set; }
         public int Quantidade { get; set; }
-        public DateTime DataCompra { get; set; }
+        public DateTime DataCadastro { get; set; }
         public double Valor { get; set; }
 
         public Ingrediente Ingrediente { get; set; }

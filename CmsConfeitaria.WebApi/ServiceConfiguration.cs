@@ -14,7 +14,7 @@ namespace CmsConfeitaria.WebApi
             serviceCollection.AddScoped<IngredienteRepository, IngredienteRepositoryImpl>();
             serviceCollection.AddScoped<UnidadeMedidaRepository, UnidadeMedidaRepositoryImpl>();
             serviceCollection.AddScoped<ReceitaIngredienteRepository, ReceitaIngredienteRepositoryImpl>();
-            serviceCollection.AddScoped<CompraRepository, CompraRepositoryImpl>();
+            serviceCollection.AddScoped<CompraRepository, CompraIngredienteRepositoryImpl>();
             serviceCollection.AddScoped<RelatorioService, RelatorioServiceImpl>();
             serviceCollection.AddScoped<UsuarioRepository, UsuarioRepositoryImpl>();
             serviceCollection.AddScoped<AutenticacaoService, AutenticacaoServiceImpl>();
