@@ -1,5 +1,6 @@
 ﻿using CmsConfeitaria.Business;
 using CmsConfeitaria.Business.Repositories.Interfaces;
+using CmsConfeitaria.Business.Services.Interfaces;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.AspNetCore.Authorization;
@@ -11,44 +12,43 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class IngredienteController : ControllerBase
     {
-        private readonly IngredienteRepository _ingredienteRepository;
-        public IngredienteController(IngredienteRepository ingredienteRepository)
+        private readonly IngredienteService _ingredienteService;
+        public IngredienteController(IngredienteService ingredienteService)
         {
-            _ingredienteRepository = ingredienteRepository;
+            _ingredienteService = ingredienteService;
         }
 
         //[Authorize()]
-        [HttpGet("ObterListaIngredientes")]
-        public IActionResult CarregarListaIngredientes()
+        [HttpGet("ObterLista")]
+        public IActionResult CarregarLista()
         {
-            List<IngredienteOutput> ListaIngredienteOutput = _ingredienteRepository.ObterListaIngredientes();
+            List<ReceitaOutput> ListaIngredienteOutput = _ingredienteService.ObterLista();
             return new JsonResult(ListaIngredienteOutput);
         }
 
         [HttpGet("ObterIngrediente/{id}")]
         public IActionResult CarregarIngrediente(int id)
         {
-            IngredienteOutput ingredienteOutput = _ingredienteRepository.ObterIngrediente(id);
+            ReceitaOutput ingredienteOutput = _ingredienteService.ObterIngrediente(id);
             return new JsonResult(ingredienteOutput);
         }
 
-        [HttpPost("AdicioanrIngrediente")]
-        public IActionResult AdicionarIngrediente(IngredienteInput ingredienteInput)
+        [HttpPost("Cadastrar")]
+        public IActionResult Cadastrar(ReceitaInput ingredienteInput)
         {
-            return new JsonResult(_ingredienteRepository.AdicionarIngrediente(ingredienteInput));
+            return new JsonResult(_ingredienteService.Adicionar(ingredienteInput));
         }
 
-        [HttpPost("EditarIngrediente")]
-        public IActionResult EditarIngrediente(IngredienteInput ingredienteInput)
+        [HttpPut("Editar/{id}")]
+        public IActionResult EditarIngrediente(int id, ReceitaInput ingredienteInput)
         {
-            return new JsonResult(_ingredienteRepository.EditarIngrediente(ingredienteInput));
+            return new JsonResult(_ingredienteService.Editar(id, ingredienteInput));
         }
 
-        [HttpDelete("RemoverIngrediente/{id}")]
+        [HttpDelete("Remover/{id}")]
         public IActionResult Remover(int id)
         {
-            _ingredienteRepository.ExcluirIngrediente(id);
-            return Ok();
+            return Ok(_ingredienteService.Excluir(id));
         }
     }
 }

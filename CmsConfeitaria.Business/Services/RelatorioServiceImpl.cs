@@ -3,8 +3,13 @@ using CmsConfeitaria.Business.Repositories.Interfaces;
 using CmsConfeitaria.Business.Services.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
+using FastReport.Export.PdfSimple;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using FastReport;
+using System.IO;
 
 namespace CmsConfeitaria.Business.Services
 {
@@ -12,47 +17,36 @@ namespace CmsConfeitaria.Business.Services
     {
         private readonly DBContextCm _context;
         private readonly ReceitaRespository _receitaService;
-        private readonly CompraRepository _compraService;
-        private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public RelatorioServiceImpl(DBContextCm context, ReceitaRespository receitaService, CompraRepository compraService, IMapper mapper)
+        public RelatorioServiceImpl(DBContextCm context, ReceitaRespository receitaService, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _receitaService = receitaService;
-            _compraService = compraService;
-            _mapper = mapper;
-        }
+            _webHostEnvironment = webHostEnvironment;
 
-        public RelatorioReceitaOutput ValorIngredientePorReceita(int receitaId)
+    }
+
+        public FileStreamResult GerarRelatorio(ValorReceitaOutput valorReceita)
         {
-            ReceitaOutput receitaOutput = _receitaService.ObterReceita(receitaId);
-            Receita receita = _mapper.Map<Receita>(receitaOutput);
-            RelatorioReceitaOutput relatorioReceitaOutput = new RelatorioReceitaOutput();
 
-            receitaOutput.Nome = receita.Nome;
-            receitaOutput.ModoPreparo = receita.ModoPreparo;
+            string reportFile = Path.Combine(this._webHostEnvironment.ContentRootPath, @"Relatorio\Report.frx");
+            Report report = new Report();
+            report.Load(reportFile);
 
-            if (receita.ReceitaIngredientes != null)
+            report.Report.SetParameterValue("NomeReceita", valorReceita.NomeReceita);
+            report.Report.SetParameterValue("ValorTotal", valorReceita.ValorTotal);
+            report.Report.Dictionary.RegisterBusinessObject(valorReceita.Ingredientes, "ingredientes", 30, true);
+
+            report.Report.Prepare();
+
+            var pdfExport = new PDFSimpleExport();
+
+            using (MemoryStream ms = new MemoryStream())
             {
-                foreach (var item in receita.ReceitaIngredientes)
-                {
-                    var ingredienteOutput = new RelatorioIngredienteOutput();
-                    ingredienteOutput.NomeIngrediente = item.ingrediente.Nome;
-                    var ultimaCompra = item.ingrediente.Compras.OrderByDescending(x => x.Id).FirstOrDefault();
-                    ingredienteOutput.QuantidadeTotal = ultimaCompra.Quantidade;
-                    var valorPorUnidade = ultimaCompra.Valor / ultimaCompra.Quantidade;
-                    ingredienteOutput.QuantidadeReceita = item.Quantidade;
-                    var valorCalculado = valorPorUnidade * ingredienteOutput.QuantidadeReceita;
-                    ingredienteOutput.ValorCalculo = valorCalculado;
-                    relatorioReceitaOutput.ValorTotalReceita += valorCalculado;
-
-                    relatorioReceitaOutput.IngredienteOutputs.Add(ingredienteOutput);
-                }
-
-                return relatorioReceitaOutput;
+                pdfExport.Export(report, ms);
+                return new FileStreamResult(new MemoryStream(ms.ToArray()), "application/pdf");
             }
-            else
-                throw new CmsException("essa receita ainda não possui ingredientes cadastrados");
         }
     }
 }

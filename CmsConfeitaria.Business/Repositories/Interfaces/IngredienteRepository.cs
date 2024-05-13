@@ -11,10 +11,10 @@ namespace CmsConfeitaria.Business.Repositories.Interfaces
 {
     public interface IngredienteRepository
     {
-        public List<IngredienteOutput> ObterListaIngredientes();
-        public IngredienteOutput ObterIngrediente(int id);
-        public IngredienteOutput AdicionarIngrediente(IngredienteInput ingredienteInput);
-        public IngredienteOutput EditarIngrediente(IngredienteInput ingredienteInput);
-        public bool ExcluirIngrediente(int id);
+        public List<Ingrediente> ObterLista();
+        public Ingrediente ObterIngrediente(int id);
+        public Ingrediente Adicionar(ReceitaInput ingredienteInput);
+        public Ingrediente Editar(int id, ReceitaInput ingredienteInput);
+        public int Excluir(int id);
     }
 }

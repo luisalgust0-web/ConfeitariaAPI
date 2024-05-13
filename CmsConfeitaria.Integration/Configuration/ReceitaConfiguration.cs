@@ -12,7 +12,7 @@ namespace CmsConfeitaria.Integration.Configuration
 {
     public class ReceitaConfiguration : IEntityTypeConfiguration<Receita>
     {
-        public void Configure(EntityTypeBuilder<Receita> builder )
+        public void Configure(EntityTypeBuilder<Receita> builder)
         {
             builder.ToTable("Receita");
             builder.HasKey(e => e.Id);
@@ -20,6 +20,8 @@ namespace CmsConfeitaria.Integration.Configuration
             builder.Property(s => s.ModoPreparo).HasColumnName("ModoPreparo");
             builder.Property(s => s.DataCadastro).HasColumnName("DataCadastro");
             builder.Property(s => s.Nome).HasColumnName("Nome");
+            builder.Property(s => s.Imagem).HasColumnName("Imagem");
+            builder.Property(s => s.UserId).HasColumnName("UserId");
 
             builder.HasMany(s => s.ReceitaIngredientes).WithOne(s => s.Receita).HasForeignKey(s => s.ReceitaId);
         }

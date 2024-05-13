@@ -23,29 +23,27 @@ namespace CmsConfeitaria.Business.Repositories
             _mapper = mapper;
         }
 
-        public List<IngredienteOutput> ObterListaIngredientes()
+        public List<Ingrediente> ObterLista()
         {
-            IEnumerable<Ingrediente> ListaIngredientes = _context.Ingrediente.AsEnumerable();
-            List<IngredienteOutput> ListaIngredientesInput = _mapper.Map<List<IngredienteOutput>>(ListaIngredientes);
-            return ListaIngredientesInput;
+            List<Ingrediente> ListaIngredientes = _context.Ingrediente.ToList();
+            return ListaIngredientes;
         }
 
-        public bool ExcluirIngrediente(int ingredienteId)
+        public int Excluir(int ingredienteId)
         {
             Ingrediente ingrediente = _context.Ingrediente.Find(ingredienteId);
             _context.Ingrediente.Remove(ingrediente);
             _context.SaveChanges();
-            return true;
+            return ingredienteId;
         }
 
-        public IngredienteOutput ObterIngrediente(int id)
+        public Ingrediente ObterIngrediente(int id)
         {
             Ingrediente ingrediente = _context.Ingrediente.Find(id);
-            IngredienteOutput ingredienteOutput = _mapper.Map<IngredienteOutput>(ingrediente);
-            return ingredienteOutput;
+            return ingrediente;
         }
 
-        public IngredienteOutput AdicionarIngrediente(IngredienteInput ingredienteInput)
+        public Ingrediente Adicionar(ReceitaInput ingredienteInput)
         {
             Ingrediente ingrediente = _mapper.Map<Ingrediente>(ingredienteInput);
 
@@ -53,20 +51,21 @@ namespace CmsConfeitaria.Business.Repositories
             {
                 _context.Ingrediente.Add(ingrediente);
                 _context.SaveChanges();
-                return _mapper.Map<IngredienteOutput>(ingrediente);
+                return ingrediente;
             }
             else
                 throw new CmsException("Ingrediente já existente");
         }
 
-        public IngredienteOutput EditarIngrediente(IngredienteInput ingredienteInput)
+        public Ingrediente Editar(int id, ReceitaInput ingredienteInput)
         {
-            Ingrediente ingrediente = _mapper.Map<Ingrediente>(ingredienteInput);
+            Ingrediente ingrediente = _context.Ingrediente.Find(id);
+            ingrediente.Nome = ingredienteInput.Nome;
+
 
             _context.Ingrediente.Update(ingrediente);
             _context.SaveChanges();
-            IngredienteOutput ingredienteOutput = _mapper.Map<IngredienteOutput>(ingrediente);
-            return ingredienteOutput;
+            return ingrediente;
         }
     }
 }

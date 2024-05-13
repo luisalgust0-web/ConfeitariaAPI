@@ -1,4 +1,5 @@
 ﻿using CmsConfeitaria.Business.Repositories.Interfaces;
+using CmsConfeitaria.Business.Services.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
@@ -12,45 +13,51 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class ReceitaController : ControllerBase
     {
-        private readonly ReceitaRespository _receitaRepository;
+        private readonly ReceitaService _receitaService;
 
-        public ReceitaController(ReceitaRespository receitaRepository)
+        public ReceitaController(ReceitaService receitaService)
         {
-            _receitaRepository = receitaRepository;
+            _receitaService = receitaService;
         }
 
-        [HttpPost("AdicionarReceita")]
-        public IActionResult AdicionarReceita([FromForm] ReceitaInput receitaInput)
+        [HttpPost("Cadastrar")]
+        public IActionResult Cadastrar([FromForm] ReceitaInput receitaInput)
         {
-            ReceitaOutput receita = _receitaRepository.AdicionarReceita(receitaInput);
+            ReceitaOutput receita = _receitaService.Adicionar(receitaInput);
             return new JsonResult(receita);
         }
 
-        [HttpPost("EditarReceita")]
-        public IActionResult EditarReceita([FromForm] ReceitaInput receitaInput)
+        [HttpGet("ObterValorTotalDaReceita")]
+        public IActionResult ObterValorTotalDaReceita(int receitaId)
         {
-            ReceitaOutput receita = _receitaRepository.EditarReceita(receitaInput);
+            return new JsonResult(_receitaService.CustoReceita(receitaId));
+        }
+
+        [HttpPut("Editar/{id}")]
+        public IActionResult Editar([FromForm] int id, ReceitaInput receitaInput)
+        {
+            ReceitaOutput receita = _receitaService.Editar(id, receitaInput);
             return new JsonResult(receita);
         }
 
-        [HttpDelete("RemoverReceita/{id}")]
-        public IActionResult ExcluirReceita(int id)
+        [HttpDelete("Remover/{id}")]
+        public IActionResult Remover(int id)
         {
-            _receitaRepository.ExcluirReceita(id);
+            _receitaService.Excluir(id);
             return Ok();
         }
 
-        [HttpGet("ObterListaReceitas")]
-        public IActionResult CarregarListaReceitas()
+        [HttpGet("ObterLista")]
+        public IActionResult CarregarLista()
         {
-            List<ReceitaOutput> receitaLista = _receitaRepository.ObterListaReceitas();
+            List<ReceitaOutput> receitaLista = _receitaService.ObterLista();
             return new JsonResult(receitaLista);
         }
 
         [HttpGet("ObterReceita/{id}")]
         public IActionResult CarregarReceita(int id)
         {
-            ReceitaOutput receita = _receitaRepository.ObterReceita(id);
+            ReceitaOutput receita = _receitaService.ObterIngrediente(id);
             return new JsonResult(receita);
         }
     }

@@ -11,8 +11,8 @@ namespace CmsConfeitaria.Business.Repositories.Interfaces
 {
     public interface UsuarioRepository
     {
-        public UsuarioOutput AdicionarUsuario(UsuarioInput usuarioInput);
-        public UsuarioOutput EditarUsuario(UsuarioInput usuarioInput);
-        public bool ExcluirUsuario(int id);
+        public Usuario Cadastrar(UsuarioInput usuarioInput);
+        public Usuario Editar(int id, UsuarioInput usuarioInput);
+        public int Excluir(int id);
     }
 }

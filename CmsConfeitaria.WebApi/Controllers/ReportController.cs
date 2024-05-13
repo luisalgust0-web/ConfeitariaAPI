@@ -1,5 +1,6 @@
 ﻿using CmsConfeitaria.Integration.ViewModels.Inputs;
 using CmsConfeitaria.Integration.ViewModels.Outputs;
+using FastReport;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,13 +21,13 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("report")]
         public ActionResult GenerateModelReport()
         {
-            var lst = new List<RelatorioReceitaOutput>();
+            List<ValorReceitaOutput> valorReceitas = new List<ValorReceitaOutput>();
 
 
-            var reportFile = Path.Combine(this._webHostEnvironment.ContentRootPath, @"Reports\Demonstrativo\ImpressaoCalculoMovimentoFinanceiro.frx");
-            var r = new FastReport.Report();
-            r.Report.Dictionary.RegisterBusinessObject(lst, "registros", 10, true);
-            r.Report.Save(reportFile);
+            string reportFile = Path.Combine(this._webHostEnvironment.ContentRootPath, @"Relatorio\Report.frx");
+            Report report = new Report();
+            report.Report.Dictionary.RegisterBusinessObject(valorReceitas, "valorReceita", 10 ,true);
+            report.Report.Save(reportFile);
 
             return Ok("OK");
         }

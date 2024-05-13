@@ -1,6 +1,8 @@
 ﻿using CmsConfeitaria.Business.Repositories.Interfaces;
 using CmsConfeitaria.Business.Services.Interfaces;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
+using CmsConfeitaria.Integration.ViewModels.Outputs;
+using FastReport;
 using FastReport.Export.PdfSimple;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,37 +14,26 @@ namespace CmsConfeitaria.WebApi.Controllers
     {
         private readonly RelatorioService _service;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly ReceitaRespository _receitaRepository;
-        public RelatorioController(RelatorioService service, IWebHostEnvironment webHostEnvironment, ReceitaRespository receitaRepository)
+        private readonly ReceitaService _receitaService;
+        public RelatorioController(RelatorioService service, IWebHostEnvironment webHostEnvironment, ReceitaService receitaService)
         {
             _service = service;
+            _receitaService = receitaService;
             _webHostEnvironment = webHostEnvironment;
-            _receitaRepository = receitaRepository;
-        }
-
-        [HttpPost("ValorIngredientePorReceita")]
-        public RelatorioReceitaOutput ValorIngredientePorReceita(int ReceitaId)
-        {
-            RelatorioReceitaOutput ValorIngredientePorReceita = _service.ValorIngredientePorReceita(ReceitaId);
-            return ValorIngredientePorReceita;
         }
 
         [HttpGet("Relatorio")]
-        public IActionResult Relatorio(int ReceitaId)
+        public IActionResult RelatorioValorTotalReceita(int ReceitaId)
         {
-            var receita = _receitaRepository.ObterReceita(ReceitaId);
+            List<ValorReceitaOutput> listaValorReceita = new List<ValorReceitaOutput>();
+            listaValorReceita.Add(_receitaService.custoReceita(ReceitaId));
 
-
-            RelatorioReceitaOutput receitaRelatorio = _service.ValorIngredientePorReceita(receita.Id);
-
-
-            var reportFile = Path.Combine(this._webHostEnvironment.ContentRootPath, @"Relatorio\Report.frx");
-            var report = new FastReport.Report();
+            string reportFile = Path.Combine(this._webHostEnvironment.ContentRootPath, @"Relatorio\Report.frx");
+            Report report = new Report();
             report.Load(reportFile);
-            report.Report.SetParameterValue("NomeReceita", receita.Nome);
-            report.Report.SetParameterValue("ModoPreparo", receita.ModoPreparo);
-            report.Report.SetParameterValue("ValorTotalReceita", receitaRelatorio.ValorTotalReceita);
-            report.Report.Dictionary.RegisterBusinessObject(receitaRelatorio.IngredienteOutputs, "ingrediente", 30, true);
+
+            report.Report.Dictionary.RegisterBusinessObject(listaValorReceita, "valorReceita", 30, true);
+
             report.Report.Prepare();
 
             var pdfExport = new PDFSimpleExport();
@@ -50,7 +41,8 @@ namespace CmsConfeitaria.WebApi.Controllers
             using (MemoryStream ms = new MemoryStream())
             {
                 pdfExport.Export(report, ms);
-                return new FileStreamResult(new MemoryStream(ms.ToArray()), "application/pdf");
+                ms.Flush();
+                return File(new MemoryStream(ms.ToArray()), "application/pdf", Path.GetFileNameWithoutExtension("Receita") + ".pdf");
             }
         }
 

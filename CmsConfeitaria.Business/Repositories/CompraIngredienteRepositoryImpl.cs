@@ -7,13 +7,15 @@ using CmsConfeitaria.Integration.ViewModels.Outputs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CmsConfeitaria.Business.Repositories
 {
-    public class CompraIngredienteRepositoryImpl : CompraRepository
+    public class CompraIngredienteRepositoryImpl : CompraIngredienteRepository
     {
         private readonly DBContextCm _context;
         private readonly IMapper _mapper;
@@ -23,23 +25,23 @@ namespace CmsConfeitaria.Business.Repositories
             _mapper = mapper;
         }
 
-        public CompraOutput AdicionarCompra(CompraInput compraInput)
+        public CompraIngredienteOutput AdicionarCompra(CompraIngredienteInput compraInput)
         {
             CompraIngrediente compra = _mapper.Map<CompraIngrediente>(compraInput);
 
             _context.Compra.Add(compra);
             _context.SaveChanges();
-            CompraOutput compraOutput = _mapper.Map<CompraOutput>(compra);
+            CompraIngredienteOutput compraOutput = _mapper.Map<CompraIngredienteOutput>(compra);
             return compraOutput;
         }
 
-        public CompraOutput EditarCompra(CompraInput compraInput)
+        public CompraIngredienteOutput EditarCompra(CompraIngredienteInput compraInput)
         {
             CompraIngrediente compra = _mapper.Map<CompraIngrediente>(compraInput);
 
             _context.Compra.Update(compra);
             _context.SaveChanges();
-            CompraOutput compraOutput = _mapper.Map<CompraOutput>(compra);
+            CompraIngredienteOutput compraOutput = _mapper.Map<CompraIngredienteOutput>(compra);
             return compraOutput;
         }
 
@@ -51,17 +53,24 @@ namespace CmsConfeitaria.Business.Repositories
             return true;
         }
 
-        public CompraOutput ObterCompra(int id)
+        public CompraIngredienteOutput ObterCompra(int id)
         {
             CompraIngrediente compra = _context.Compra.Where(x => x.Id == id).Include(x => x.Ingrediente).Include(x => x.UnidadeMedida).FirstOrDefault();
-            CompraOutput compraOutput = _mapper.Map<CompraOutput>(compra);
+            CompraIngredienteOutput compraOutput = _mapper.Map<CompraIngredienteOutput>(compra);
             return compraOutput;
         }
 
-        public List<CompraOutput> ObterListaCompras()
+        public CompraIngredienteOutput ObterUltimaCompraPorIngredienteId(int ingredienteId)
+        {
+            var compraIngrediente = _context.Compra.Where(x => x.IngredienteId == ingredienteId).OrderByDescending(x => x.DataCadastro).FirstOrDefault();
+            CompraIngredienteOutput compraOutput = _mapper.Map<CompraIngredienteOutput>(compraIngrediente);
+            return compraOutput;
+        }
+
+        public List<CompraIngredienteOutput> ObterListaCompras()
         {
             List<CompraIngrediente> listaCompra = _context.Compra.Include(x => x.Ingrediente).Include(x => x.UnidadeMedida).ToList();
-            List<CompraOutput> listaCompraOutput = _mapper.Map<List<CompraOutput>>(listaCompra);
+            List<CompraIngredienteOutput> listaCompraOutput = _mapper.Map<List<CompraIngredienteOutput>>(listaCompra);
             return listaCompraOutput;
         }
     }

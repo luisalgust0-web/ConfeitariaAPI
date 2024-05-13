@@ -2,17 +2,8 @@
 using CmsConfeitaria.Business.Repositories.Interfaces;
 using CmsConfeitaria.Core.Entity;
 using CmsConfeitaria.Integration;
-using CmsConfeitaria.Integration.Migrations;
 using CmsConfeitaria.Integration.ViewModels.Inputs;
-using CmsConfeitaria.Integration.ViewModels.Outputs;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace CmsConfeitaria.Business.Repositories
 {
@@ -26,52 +17,35 @@ namespace CmsConfeitaria.Business.Repositories
             _mapper = mapper;
         }
 
-        public List<ReceitaOutput> ObterListaReceitas()
+        public List<Receita> ObterLista()
         {
-            IEnumerable<Receita> ListaReceita = _dBContextCm.Receita.AsEnumerable();
-            List<ReceitaOutput> listReceitaOutputs = _mapper.Map<List<ReceitaOutput>>(ListaReceita);
-            return listReceitaOutputs;
+            List<Receita> listaReceita = _dBContextCm.Receita.ToList();
+            return listaReceita;
         }
 
-        public ReceitaOutput ObterReceita(int id)
+        public Receita ObterReceita(int id)
         {
-            var consulta = _dBContextCm.Receita.Where(x => x.Id == id).Include(s => s.ReceitaIngredientes).ThenInclude(s => s.ingrediente).ThenInclude(s => s.Compras);
-            ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(consulta.FirstOrDefault());
-            return receitaOutput;
+            Receita receita = _dBContextCm.Receita.Where(x => x.Id == id).Include(s => s.ReceitaIngredientes).ThenInclude(s => s.ingrediente).ThenInclude(s => s.Compras).FirstOrDefault();
+            return receita;
         }
 
-        public bool ExcluirReceita(int id)
+        public int Excluir(int id)
         {
             Receita receita = _dBContextCm.Receita.Find(id);
             _dBContextCm.Receita.Remove(receita);
             _dBContextCm.SaveChanges();
-            return true;
+            return id;
         }
 
-        public ReceitaOutput AdicionarReceita(ReceitaInput receitaInput)
+        public Receita Adicionar(ReceitaInput receitaInput)
         {
             Receita receita = _mapper.Map<Receita>(receitaInput);
 
             if (!_dBContextCm.Receita.Any(x => x.Nome.ToLower() == receita.Nome.ToLower()))
             {
-                using (TransactionScope scope = new TransactionScope())
-                {
-                    _dBContextCm.Receita.Add(receita);
-                    _dBContextCm.SaveChanges();
-                    ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(receita);
-                    MemoryStream memoryStream = new MemoryStream();
-
-                    ImagemReceita imagemReceita = new ImagemReceita();
-                    receitaInput.ImagemFile.CopyTo(memoryStream);
-                    imagemReceita.ImagemFile = memoryStream.ToArray();
-                    imagemReceita.ReceitaId = receitaOutput.Id;
-                    _dBContextCm.ImagemReceita.Add(imagemReceita);
-                    _dBContextCm.SaveChanges();
-
-                    scope.Complete();
-
-                    return receitaOutput;
-                }
+                _dBContextCm.Receita.Add(receita);
+                _dBContextCm.SaveChanges();
+                return receita;
             }
             else
             {
@@ -79,14 +53,18 @@ namespace CmsConfeitaria.Business.Repositories
             }
         }
 
-        public ReceitaOutput EditarReceita(ReceitaInput receitaInput)
+        public Receita Editar(int id, ReceitaInput receitaInput)
         {
-            Receita receita = _mapper.Map<Receita>(receitaInput);
+            Receita receita = _dBContextCm.Receita.Find(id);
+
+            receita.ModoPreparo = receitaInput.ModoPreparo;
+            receita.Nome = receitaInput.Nome;
+            //receita.Imagem = receitaInput.
+
 
             _dBContextCm.Receita.Update(receita);
             _dBContextCm.SaveChanges();
-            ReceitaOutput receitaOutput = _mapper.Map<ReceitaOutput>(receita);
-            return receitaOutput;
+            return receita;
         }
     }
 }

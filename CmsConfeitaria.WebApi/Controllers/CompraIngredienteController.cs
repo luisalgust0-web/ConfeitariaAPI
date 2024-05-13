@@ -10,9 +10,9 @@ namespace CmsConfeitaria.WebApi.Controllers
     [ApiController]
     public class CompraIngredienteController : ControllerBase
     {
-        private readonly CompraRepository _compraRepository;
+        private readonly CompraIngredienteRepository _compraRepository;
 
-        public CompraIngredienteController(CompraRepository compraRepository)
+        public CompraIngredienteController(CompraIngredienteRepository compraRepository)
         {
             _compraRepository = compraRepository;
         }
@@ -20,25 +20,26 @@ namespace CmsConfeitaria.WebApi.Controllers
         [HttpGet("ObterListaCompraIngredientes")]
         public IActionResult ObterListaCompras()
         {
-            List<CompraOutput> listaCompraOutput = _compraRepository.ObterListaCompras();
+            List<CompraIngredienteOutput> listaCompraOutput = _compraRepository.ObterListaCompras();
             return new JsonResult(listaCompraOutput);
         }
+
 
         [HttpGet("ObterCompraIngrediente/{id}")]
         public IActionResult ObterCompra(int id)
         {
-            CompraOutput compraOutput = _compraRepository.ObterCompra(id);
+            CompraIngredienteOutput compraOutput = _compraRepository.ObterCompra(id);
             return new JsonResult(compraOutput);
         }
 
         [HttpPost("AdicionarCompraIngrediente")]
-        public IActionResult AdicionarCompra(CompraInput compraInput)
+        public IActionResult AdicionarCompra(CompraIngredienteInput compraInput)
         {
             return new JsonResult(_compraRepository.AdicionarCompra(compraInput));
         }
 
         [HttpPost("EditarCompraIngrediente")]
-        public IActionResult EditarCompra(CompraInput compraInput)
+        public IActionResult EditarCompra(CompraIngredienteInput compraInput)
         {
             return new JsonResult(_compraRepository.EditarCompra(compraInput));
         }

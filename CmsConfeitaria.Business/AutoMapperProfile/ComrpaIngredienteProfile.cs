@@ -14,9 +14,9 @@ namespace CmsConfeitaria.Business.AutoMapperProfile
     {
         public ComrpaIngredienteProfile()
         {
-            CreateMap<CompraIngrediente, CompraOutput>(MemberList.None).ForMember(x => x.NomeIngrediente, cfg => cfg.MapFrom(src => src.Ingrediente.Nome)).ForMember(x => x.Sigla, cfg => cfg.MapFrom(src => src.UnidadeMedida.Sigla));
+            CreateMap<CompraIngrediente, CompraIngredienteOutput>(MemberList.None).ForMember(x => x.NomeIngrediente, cfg => cfg.MapFrom(src => src.Ingrediente.Nome)).ForMember(x => x.Sigla, cfg => cfg.MapFrom(src => src.UnidadeMedida.Sigla));
 
-            CreateMap<CompraInput, CompraIngrediente>(MemberList.None);
+            CreateMap<CompraIngredienteInput, CompraIngrediente>(MemberList.None);
         }
     }
 }

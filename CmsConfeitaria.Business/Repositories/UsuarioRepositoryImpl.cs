@@ -23,16 +23,15 @@ namespace CmsConfeitaria.Business.Repositories
             _mapper = mapper;
         }
 
-        public UsuarioOutput AdicionarUsuario(UsuarioInput usuarioInput)
+        public Usuario Cadastrar(UsuarioInput usuarioInput)
         {
             Usuario usuario = _mapper.Map<Usuario>(usuarioInput);
 
-            if (!_context.Usuarios.Any(usuario => usuario.Nome.ToLower() == usuarioInput.Nome.ToLower()))
+            if (!_context.Usuarios.Any(usuario => usuario.NomeUsuario.ToLower() == usuarioInput.NomeUsuario.ToLower()))
             {
                 _context.Usuarios.Add(usuario);
                 _context.SaveChanges();
-                UsuarioOutput usuarioOutput = _mapper.Map<UsuarioOutput>(usuario);
-                return usuarioOutput;
+                return usuario;
             }
             else
             {
@@ -41,21 +40,22 @@ namespace CmsConfeitaria.Business.Repositories
 
         }
 
-        public UsuarioOutput EditarUsuario(UsuarioInput usuarioInput)
+        public Usuario Editar(int id, UsuarioInput usuarioInput)
         {
-            Usuario usuario = _mapper.Map<Usuario>(usuarioInput);
+            Usuario usuario = _context.Usuarios.Find(id);
+            usuario.Senha = usuarioInput.Senha;
+            usuario.Apelido = usuarioInput.Apelido;
 
             _context.Usuarios.Update(usuario);
             _context.SaveChanges();
-            UsuarioOutput usuarioOutput = _mapper.Map<UsuarioOutput>(usuario);
-            return usuarioOutput; ;
+            return usuario;
         }
 
-        public bool ExcluirUsuario(int id)
+        public int Excluir(int id)
         {
             Usuario usuario = _context.Usuarios.Find(id);
             _context.Usuarios.Remove(usuario);
-            return true;
+            return id;
         }
     }
 }

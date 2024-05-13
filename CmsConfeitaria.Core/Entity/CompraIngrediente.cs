@@ -13,7 +13,7 @@ namespace CmsConfeitaria.Core.Entity
         public int Id { get; set; }
         public int IngredienteId { get; set; }
         public int UnidadeMedidaId { get; set; }
-        public int Quantidade { get; set; }
+        public double Quantidade { get; set; }
         public DateTime DataCadastro { get; set; }
         public double Valor { get; set; }
 

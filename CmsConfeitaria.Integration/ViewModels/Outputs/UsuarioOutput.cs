@@ -9,7 +9,7 @@ namespace CmsConfeitaria.Integration.ViewModels.Outputs
     public class UsuarioOutput
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string LoginNome { get; set; }
+        public string NomeUsuario { get; set; }
+        public string Apelido { get; set; }
     }
 }

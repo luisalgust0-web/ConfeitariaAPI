@@ -17,8 +17,12 @@ namespace CmsConfeitaria.Integration.Configuration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("Id");
             builder.Property(x => x.Senha).HasColumnName("Senha");
-            builder.Property(x => x.LoginNome).HasColumnName("LoginNome");
-            builder.Property(x => x.Nome).HasColumnName("Nome");
+            builder.Property(x => x.NomeUsuario).HasColumnName("NomeUsuario");
+            builder.Property(x => x.Apelido).HasColumnName("Apelido");
+
+            builder.HasMany(x => x.Ingredientes).WithOne(x => x.Usuario).HasForeignKey(x => x.UserId);
+            builder.HasMany(x => x.Receitas).WithOne(x => x.user).HasForeignKey(x => x.UserId);
+            //builder.HasMany(x => x.compraIngredientes).WithOne(x => x.).HasForeignKey(x => x.UserId);
         }
     }
 }

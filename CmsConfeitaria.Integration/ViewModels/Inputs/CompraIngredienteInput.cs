@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsConfeitaria.Integration.ViewModels.Outputs
+namespace CmsConfeitaria.Integration.ViewModels.Inputs
 {
-    public  class CompraOutput
+    public class CompraIngredienteInput
     {
         public int Id { get; set; }
         public int IngredienteId { get; set; }
-        public string NomeIngrediente { get; set; }
         public int UnidadeMedidaId { get; set; }
-        public string Sigla { get; set; }
-        public int Quantidade { get; set; }
+        public double Quantidade { get; set; }
         public DateTime DataCompra { get; set; }
         public double Valor { get; set; }
     }

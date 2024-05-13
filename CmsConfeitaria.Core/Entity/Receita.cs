@@ -14,8 +14,11 @@ namespace CmsConfeitaria.Core.Entity
         public string Nome { get; set; }
         public DateTime DataCadastro { get; set; }
         public string ModoPreparo { get; set; }
+        public byte[] Imagem { get; set; }
+        public int UserId { get; set; }
 
+
+        public Usuario user { get; set; }
         public List<ReceitaIngrediente> ReceitaIngredientes { get; set; }
-        public ImagemReceita ImagemReceita { get; set; }
     }
 }
